@@ -8,7 +8,7 @@ export interface Props {
   size: number;
   weight?: "regular" | "bold";
   align?: "center" | "end" | "start";
-  color?: keyof DefaultTheme["colors"];
+  color?: keyof DefaultTheme["textColors"];
 }
 
 const Text: React.FC<Props> = ({

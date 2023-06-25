@@ -18,6 +18,8 @@ export const Container = styled.View<Props>`
   ${(props) => props.py && `padding: 0px; ${props.py}px;`}
   ${(props) => props.pl && `padding-left: ${props.pl}px;`}
   ${(props) => props.pr && `padding-left: ${props.pr}px;`}
+  ${(props) => props.pt && `padding-top: ${props.pt}px;`}
+  ${(props) => props.pb && `padding-bottom: ${props.pb}px;`}
   ${(props) => props.align && `align-items: ${props.align};`}
   ${(props) => props.justify && `justify-content: ${props.justify};`}
   
@@ -30,4 +32,8 @@ export const Container = styled.View<Props>`
   flex-direction: ${(props) => props.dir};
   ${(props) => props.background && `background-color: ${props.background};`}
   ${(props) => props.radius && `border-radius: ${props.radius}px;`}
+  
+
+  ${(props) => props.borderColor && `border-color: ${props.borderColor};`}
+  ${(props) => props.borderWidth && `border-width: ${props.borderWidth}px;`}
 `;

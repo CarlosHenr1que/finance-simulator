@@ -11,6 +11,8 @@ export interface Props {
   py?: number;
   pl?: number;
   pr?: number;
+  pt?: number;
+  pb?: number;
   dir?: "row" | "column";
   background?: string;
   align?: "center";
@@ -20,6 +22,8 @@ export interface Props {
   mr?: number;
   mb?: number;
   radius?: number;
+  borderColor?: string;
+  borderWidth?: number;
 }
 
 const Box: React.FC<Props> = ({
@@ -35,11 +39,15 @@ const Box: React.FC<Props> = ({
   align,
   justify,
   pr,
+  pt,
+  pb,
   mt,
   ml,
   mr,
   mb,
   radius,
+  borderColor,
+  borderWidth,
 }) => {
   return (
     <Container
@@ -54,11 +62,15 @@ const Box: React.FC<Props> = ({
       background={background}
       justify={justify}
       pr={pr}
+      pt={pt}
+      pb={pb}
       mt={mt}
       ml={ml}
       mr={mr}
       mb={mb}
       radius={radius}
+      borderColor={borderColor}
+      borderWidth={borderWidth}
     >
       {children}
     </Container>

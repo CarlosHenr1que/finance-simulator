@@ -8,6 +8,7 @@ import Input from "../../../src/components/common/Input";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import { StatusBar } from "expo-status-bar";
 import { useRef, useState } from "react";
+import Button from "../../components/common/Button";
 
 export default function Financing() {
   const financeValueRef = useRef<TextInput>(null);
@@ -55,9 +56,11 @@ export default function Financing() {
             icon={<Icon name="money-off" color="#FF3642" size={22} />}
             placeholder="Juros (Anual)"
             mt={10}
+            mb={20}
             keyboardType="number-pad"
             onChange={setFee}
           />
+          <Button text="Simular" onPress={() => {}} />
         </Box>
       </Container>
     </>

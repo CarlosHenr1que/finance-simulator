@@ -14,12 +14,17 @@ export const Container = styled.View<Props>`
   width: ${({ width }) => (width ? transformValue(width) : "auto")};
 
   ${(props) => props.pd && `padding: ${props.pd}px;`}
-  ${(props) => props.px && `padding: 0px ${props.px}px;`}
-  ${(props) => props.py && `padding: 0px; ${props.py}px;`}
   ${(props) => props.pl && `padding-left: ${props.pl}px;`}
   ${(props) => props.pr && `padding-left: ${props.pr}px;`}
   ${(props) => props.pt && `padding-top: ${props.pt}px;`}
   ${(props) => props.pb && `padding-bottom: ${props.pb}px;`}
+  
+
+  ${(props) => props.px && `padding-left: ${props.px}px;`}
+  ${(props) => props.px && `padding-right: ${props.px}px;`}
+  ${(props) => props.py && `padding-top: ${props.py}px;`}
+  ${(props) => props.py && `padding-bottom: ${props.py}px;`}
+  
   ${(props) => props.align && `align-items: ${props.align};`}
   ${(props) => props.justify && `justify-content: ${props.justify};`}
   

@@ -7,6 +7,7 @@ import { ActivityIndicator } from "react-native";
 interface Props {
   text: string;
   isLoading?: boolean;
+  width?: number;
   onPress: () => void;
 }
 
@@ -14,10 +15,11 @@ const Button: React.FC<Props> = ({
   text,
   isLoading = false,
   onPress,
+  width,
   ...rest
 }) => {
   return (
-    <S.Container onPress={onPress}>
+    <S.Container width={width} onPress={onPress}>
       {isLoading ? (
         <ActivityIndicator size="small" color="#fff" />
       ) : (

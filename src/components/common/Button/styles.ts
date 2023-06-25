@@ -1,8 +1,15 @@
 import styled from "styled-components/native";
 
-export const Container = styled.TouchableOpacity`
-  width: ${({ theme }) =>
-    theme.metrics.screenWidth - 3 * theme.metrics.basePadding}px;
+interface ContainerProps {
+  width?: number;
+}
+
+export const Container = styled.TouchableOpacity<ContainerProps>`
+  width: ${(props) =>
+    props.width
+      ? props.width
+      : props.theme.metrics.screenWidth -
+        3 * props.theme.metrics.basePadding}px;
   height: 45px;
   background: ${({ theme }) => theme.colors.primary};
   border-radius: ${({ theme }) => theme.metrics.baseRadius}px;

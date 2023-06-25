@@ -14,6 +14,7 @@ declare module "styled-components" {
       primary: string;
       secondary: string;
       placeHolder: string;
+      white: string;
     };
 
     metrics: {

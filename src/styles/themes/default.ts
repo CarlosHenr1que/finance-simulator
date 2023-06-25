@@ -15,6 +15,7 @@ export default {
     primary: "#000000",
     secondary: "#484848",
     placeHolder: "#8D8D8D",
+    white: "#fff",
   },
 
   metrics: {

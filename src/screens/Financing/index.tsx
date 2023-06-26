@@ -11,6 +11,7 @@ import { useRef, useState } from "react";
 import Button from "../../components/common/Button";
 import { RootStackParamList } from "../../routes/app.routes";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { calculateFinance } from "../../utils/financing";
 
 type FinancingNavigationProps = NativeStackScreenProps<
   RootStackParamList,
@@ -25,10 +26,26 @@ export default function Financing({ navigation }: FinancingProps) {
 
   const [financeValue, setFinanceValue] = useState("");
   const [installments, setInstallments] = useState("");
+  const [loading, setLoading] = useState(false);
   const [fee, setFee] = useState("");
 
-  const onSimulatePress = () => {
-    navigation.navigate("Simulation");
+  const onSimulatePress = async () => {
+    setLoading(true);
+    const installmentsObject = await calculateFinance(
+      Number(financeValue),
+      Number(installments),
+      Number(fee.replace(",", "."))
+    );
+    setLoading(false);
+
+    navigation.navigate("Simulation", {
+      simulation: {
+        financing: Number(financeValue),
+        fee: Number(fee.replace(",", ".")),
+        installmentsNumber: Number(installments),
+        installments: installmentsObject,
+      },
+    });
   };
 
   return (
@@ -69,10 +86,14 @@ export default function Financing({ navigation }: FinancingProps) {
             placeholder="Juros (Anual)"
             mt={10}
             mb={20}
-            keyboardType="number-pad"
+            keyboardType="decimal-pad"
             onChange={setFee}
           />
-          <Button text="Simular" onPress={onSimulatePress} />
+          <Button
+            text="Simular"
+            onPress={onSimulatePress}
+            isLoading={loading}
+          />
         </Box>
       </Container>
     </>

@@ -3,10 +3,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Financing from "../screens/Financing";
 import Simulation from "../screens/Simulation";
+import { Simulation as SimulationProps } from "../models/simulation/financing";
 
 export type RootStackParamList = {
   Financing: undefined;
-  Simulation: undefined;
+  Simulation: {
+    simulation: SimulationProps;
+  };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

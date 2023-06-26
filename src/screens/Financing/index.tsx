@@ -12,6 +12,9 @@ import Button from "../../components/common/Button";
 import { RootStackParamList } from "../../routes/app.routes";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { calculateFinance } from "../../utils/financing";
+import { Controller } from "react-hook-form";
+
+import { SimulateForm, useSimulateFinancingForm } from "./form";
 
 type FinancingNavigationProps = NativeStackScreenProps<
   RootStackParamList,
@@ -20,17 +23,20 @@ type FinancingNavigationProps = NativeStackScreenProps<
 interface FinancingProps extends FinancingNavigationProps {}
 
 export default function Financing({ navigation }: FinancingProps) {
+  const {
+    control,
+    onSubmit,
+    formState: { errors },
+  } = useSimulateFinancingForm(handleSuccess);
+
   const financeValueRef = useRef<TextInput>(null);
   const installmentsRef = useRef<TextInput>(null);
   const feeRef = useRef<TextInput>(null);
-
-  const [financeValue, setFinanceValue] = useState("");
-  const [installments, setInstallments] = useState("");
   const [loading, setLoading] = useState(false);
-  const [fee, setFee] = useState("");
 
-  const onSimulatePress = async () => {
+  async function handleSuccess(values: SimulateForm) {
     setLoading(true);
+    const { financeValue, installments, fee } = values;
     const installmentsObject = await calculateFinance(
       Number(financeValue),
       Number(installments),
@@ -46,54 +52,75 @@ export default function Financing({ navigation }: FinancingProps) {
         installments: installmentsObject,
       },
     });
-  };
+  }
 
   return (
     <>
       <StatusBar style="auto" />
       <Container>
-        <Box dir="column" px={16} pt={90}>
+        <Box dir="column" px={16} pt={30}>
           <Text size={24} weight="bold">
             Simular financiamento
           </Text>
           <Text size={14} color="secondary">
             Preencha as informações abaixo para simular seu financiamento.
           </Text>
-          <Input
-            ref={financeValueRef}
-            value={financeValue}
-            icon={<Icon name="monetization-on" color="#3DE8BF" size={22} />}
-            placeholder="Valor financiado"
-            mt={10}
-            onChange={setFinanceValue}
-            onSubmitEditing={() => installmentsRef.current?.focus()}
-            keyboardType="decimal-pad"
-          />
-          <Input
-            ref={installmentsRef}
-            value={installments}
-            icon={<Icon name="money-off" color="#000" size={22} />}
-            placeholder="Prestações"
-            mt={10}
-            onChange={setInstallments}
-            onSubmitEditing={() => feeRef.current?.focus()}
-            keyboardType="number-pad"
-          />
-          <Input
-            ref={feeRef}
-            value={fee}
-            icon={<Icon name="money-off" color="#FF3642" size={22} />}
-            placeholder="Juros (Anual)"
-            mt={10}
-            mb={20}
-            keyboardType="decimal-pad"
-            onChange={setFee}
-          />
-          <Button
-            text="Simular"
-            onPress={onSimulatePress}
-            isLoading={loading}
-          />
+          <Box dir="column" width="100%" mb={20}>
+            <Controller
+              control={control}
+              name="financeValue"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  ref={financeValueRef}
+                  value={value}
+                  icon={
+                    <Icon name="monetization-on" color="#3DE8BF" size={22} />
+                  }
+                  placeholder="Valor financiado"
+                  mt={10}
+                  onChange={onChange}
+                  onSubmitEditing={() => installmentsRef.current?.focus()}
+                  keyboardType="decimal-pad"
+                  error={errors.financeValue?.message}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="installments"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  ref={installmentsRef}
+                  value={value}
+                  icon={<Icon name="money-off" color="#000" size={22} />}
+                  placeholder="Prestações"
+                  mt={10}
+                  onChange={onChange}
+                  onSubmitEditing={() => feeRef.current?.focus()}
+                  keyboardType="number-pad"
+                  error={errors.installments?.message}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="fee"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  ref={feeRef}
+                  value={value}
+                  icon={<Icon name="money-off" color="#FF3642" size={22} />}
+                  placeholder="Juros (Anual)"
+                  mt={10}
+                  keyboardType="decimal-pad"
+                  onChange={onChange}
+                  error={errors.fee?.message}
+                />
+              )}
+            />
+          </Box>
+
+          <Button text="Simular" onPress={onSubmit} isLoading={loading} />
         </Box>
       </Container>
     </>

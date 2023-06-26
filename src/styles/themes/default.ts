@@ -16,6 +16,7 @@ export default {
     secondary: "#484848",
     placeHolder: "#8D8D8D",
     white: "#fff",
+    error: "#D30000",
   },
 
   metrics: {

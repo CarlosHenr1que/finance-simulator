@@ -9,8 +9,16 @@ import Icon from "@expo/vector-icons/MaterialIcons";
 import { StatusBar } from "expo-status-bar";
 import { useRef, useState } from "react";
 import Button from "../../components/common/Button";
+import { RootStackParamList } from "../../routes/app.routes";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-export default function Financing() {
+type FinancingNavigationProps = NativeStackScreenProps<
+  RootStackParamList,
+  "Financing"
+>;
+interface FinancingProps extends FinancingNavigationProps {}
+
+export default function Financing({ navigation }: FinancingProps) {
   const financeValueRef = useRef<TextInput>(null);
   const installmentsRef = useRef<TextInput>(null);
   const feeRef = useRef<TextInput>(null);
@@ -18,6 +26,10 @@ export default function Financing() {
   const [financeValue, setFinanceValue] = useState("");
   const [installments, setInstallments] = useState("");
   const [fee, setFee] = useState("");
+
+  const onSimulatePress = () => {
+    navigation.navigate("Simulation");
+  };
 
   return (
     <>
@@ -60,7 +72,7 @@ export default function Financing() {
             keyboardType="number-pad"
             onChange={setFee}
           />
-          <Button text="Simular" onPress={() => {}} />
+          <Button text="Simular" onPress={onSimulatePress} />
         </Box>
       </Container>
     </>

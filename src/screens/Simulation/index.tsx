@@ -14,6 +14,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes/app.routes";
 import { formatCurrency } from "../../utils/currency";
 
+import ReAnimated, { SlideInDown, Layout } from "react-native-reanimated";
+
 type FinancingNavigationProps = NativeStackScreenProps<
   RootStackParamList,
   "Simulation"
@@ -26,7 +28,7 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
   return (
     <Container>
       <ScrollView>
-        <Box dir="column" background="#FBFBFB" pt={90}>
+        <Box dir="column" background="#FBFBFB" pt={30}>
           <Box dir="column" px={16}>
             <Box width="100%" justify="space-between">
               <Box dir="column">
@@ -51,6 +53,7 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
                 description="Prestações"
                 iconBackground="#000"
               />
+
               {/* <CardInformation
                 icon={<Icon name="monetization-on" color="#fff" size={22} />}
                 title="R$ 280.000,00"
@@ -59,15 +62,22 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
               /> */}
             </Stack>
           </Box>
-          <Stack mt={20} spacing={10} px={16} pt={20} background="#F2F2F2">
-            {installments.map((item: any, index: number) => (
-              <CardInstallment
-                order={`${String(index + 1)}º`}
-                price={`${formatCurrency(item.installment)}`}
-                debit={`${formatCurrency(item.debit)}`}
-              />
-            ))}
-          </Stack>
+          <ReAnimated.View
+            style={{ width: "100%" }}
+            layout={Layout}
+            entering={SlideInDown.duration(1000)}
+          >
+            <Stack mt={20} spacing={10} px={16} pt={20} background="#F2F2F2">
+              {installments.map((item: any, index: number) => (
+                <CardInstallment
+                  key={String(index)}
+                  order={`${String(index + 1)}º`}
+                  price={`${formatCurrency(item.installment)}`}
+                  debit={`${formatCurrency(item.debit)}`}
+                />
+              ))}
+            </Stack>
+          </ReAnimated.View>
         </Box>
       </ScrollView>
     </Container>

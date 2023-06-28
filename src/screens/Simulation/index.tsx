@@ -25,6 +25,17 @@ interface SimulationProps extends FinancingNavigationProps {}
 const Simulation: React.FC<SimulationProps> = ({ route }) => {
   const { financing, fee, installments, installmentsNumber, downPayment } =
     route.params.simulation;
+
+  const getFinancingValue = () => {
+    if (downPayment) return formatCurrency(financing - downPayment);
+    return formatCurrency(financing);
+  };
+
+  const formatMonthToDuration = (value: number) => {
+    const [years, months] = String(value / 12).split(".");
+    return `${years} Anos ${months[0]} meses`;
+  };
+
   return (
     <Container>
       <ScrollView>
@@ -33,7 +44,7 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
             <Box width="100%" justify="space-between">
               <Box dir="column">
                 <Text size={24} weight="bold">
-                  {formatCurrency(financing)}
+                  {getFinancingValue()}
                 </Text>
                 <Text size={14}>Valor financiado</Text>
               </Box>
@@ -42,18 +53,33 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
 
             <Stack spacing={10} mt={20}>
               <CardInformation
+                icon={<Icon name="money-off" color="#fff" size={22} />}
+                title={String(installmentsNumber)}
+                description="Prestações"
+                iconBackground="#000"
+                items={[
+                  {
+                    title: formatMonthToDuration(installments.length),
+                    description: "Duração",
+                  },
+                  {
+                    title: String(installments.length),
+                    description: "Pagas",
+                  },
+                  {
+                    title: formatCurrency(
+                      installments.at(-1)?.installment
+                    ) as string,
+                    description: "Ultima",
+                  },
+                ]}
+              />
+              <CardInformation
                 icon={<Icon name="monetization-on" color="#fff" size={22} />}
                 title={String(fee).replace(".", ",") + "%"}
                 description="Taxa de juros anual"
                 iconBackground="#FF3642"
               />
-              <CardInformation
-                icon={<Icon name="money-off" color="#fff" size={22} />}
-                title={String(installmentsNumber)}
-                description="Prestações"
-                iconBackground="#000"
-              />
-
               {downPayment && (
                 <CardInformation
                   icon={<Icon name="monetization-on" color="#fff" size={22} />}

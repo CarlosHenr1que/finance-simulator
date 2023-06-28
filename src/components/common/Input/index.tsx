@@ -7,7 +7,9 @@ import { KeyboardTypeOptions } from "react-native";
 import Text from "../Text";
 
 import ReAnimated, {
+  FadeInDown,
   FadeInLeft,
+  FadeOutDown,
   FadeOutLeft,
   Layout,
 } from "react-native-reanimated";
@@ -67,7 +69,32 @@ const Input: React.FC<Props> = React.forwardRef(
     };
 
     return (
-      <>
+      <Box dir="column" {...rest}>
+        <Box height={12} justify="space-between">
+          {value && (
+            <ReAnimated.View
+              layout={Layout}
+              entering={FadeInDown.duration(400)}
+              exiting={FadeOutDown.duration(100)}
+            >
+              <Text size={12} color="secondary">
+                {placeholder}
+              </Text>
+            </ReAnimated.View>
+          )}
+
+          {error && (
+            <ReAnimated.View
+              layout={Layout}
+              entering={FadeInLeft.duration(400)}
+              exiting={FadeOutLeft.duration(100)}
+            >
+              <Text size={12} color="error">
+                {error}
+              </Text>
+            </ReAnimated.View>
+          )}
+        </Box>
         <Box
           background={"#fff"}
           radius={8}
@@ -75,7 +102,7 @@ const Input: React.FC<Props> = React.forwardRef(
           align="center"
           borderWidth={2}
           borderColor={getBorderColor()}
-          {...rest}
+          mt={8}
         >
           {icon && icon}
           <S.TextInput
@@ -96,20 +123,7 @@ const Input: React.FC<Props> = React.forwardRef(
             keyboardType={keyboardType}
           />
         </Box>
-        {error && (
-          <ReAnimated.View
-            layout={Layout}
-            entering={FadeInLeft.duration(500)}
-            exiting={FadeOutLeft.duration(100)}
-          >
-            <Box mt={4}>
-              <Text size={12} color="error">
-                {error}
-              </Text>
-            </Box>
-          </ReAnimated.View>
-        )}
-      </>
+      </Box>
     );
   }
 );

@@ -7,13 +7,20 @@ export interface SimulateForm {
   financeValue: string;
   installments: string;
   fee: string;
+  valuationPercentage?: string;
+  downPayment?: string;
 }
 
 const validations = {
   nonZero: {
     name: "non-zero",
     message: "Deve ser maior que zero",
-    test: (value: string | undefined) => Number(value?.replace(",", ".")) > 0,
+    test: (value: string | undefined) => {
+      if (value !== undefined && value !== "") {
+        return Number(value?.replace(",", ".")) > 0;
+      }
+      return true;
+    },
   },
 };
 
@@ -23,6 +30,7 @@ const simulationFormSchema: yup.ObjectSchema<SimulateForm> = yup.object({
     .string()
     .test(nonZero.name, nonZero.message, nonZero.test)
     .required("Este campo deve ser preenchido"),
+  downPayment: yup.string().test(nonZero.name, nonZero.message, nonZero.test),
   installments: yup
     .string()
     .test(nonZero.name, nonZero.message, nonZero.test)
@@ -31,6 +39,9 @@ const simulationFormSchema: yup.ObjectSchema<SimulateForm> = yup.object({
     .string()
     .test(nonZero.name, nonZero.message, nonZero.test)
     .required("Este campo deve ser preenchido"),
+  valuationPercentage: yup
+    .string()
+    .test(nonZero.name, nonZero.message, nonZero.test),
 });
 
 export const useSimulateFinancingForm = (

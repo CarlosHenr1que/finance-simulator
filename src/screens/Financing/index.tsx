@@ -32,21 +32,32 @@ export default function Financing({ navigation }: FinancingProps) {
   const financeValueRef = useRef<TextInput>(null);
   const installmentsRef = useRef<TextInput>(null);
   const feeRef = useRef<TextInput>(null);
+  const valuationRef = useRef<TextInput>(null);
+  const downPaymentRef = useRef<TextInput>(null);
   const [loading, setLoading] = useState(false);
 
   async function handleSuccess(values: SimulateForm) {
     setLoading(true);
-    const { financeValue, installments, fee } = values;
+    const {
+      financeValue,
+      installments,
+      fee,
+      valuationPercentage,
+      downPayment,
+    } = values;
     const installmentsObject = await calculateFinance(
       Number(financeValue),
+      Number(downPayment),
       Number(installments),
-      Number(fee.replace(",", "."))
+      Number(fee.replace(",", ".")),
+      Number(valuationPercentage?.replace(",", "."))
     );
     setLoading(false);
 
     navigation.navigate("Simulation", {
       simulation: {
         financing: Number(financeValue),
+        downPayment: Number(downPayment),
         fee: Number(fee.replace(",", ".")),
         installmentsNumber: Number(installments),
         installments: installmentsObject,
@@ -65,7 +76,8 @@ export default function Financing({ navigation }: FinancingProps) {
           <Text size={14} color="secondary">
             Preencha as informações abaixo para simular seu financiamento.
           </Text>
-          <Box dir="column" width="100%" mb={20}>
+
+          <Box dir="column" width="100%" mb={20} mt={20}>
             <Controller
               control={control}
               name="financeValue"
@@ -79,9 +91,26 @@ export default function Financing({ navigation }: FinancingProps) {
                   placeholder="Valor financiado"
                   mt={10}
                   onChange={onChange}
-                  onSubmitEditing={() => installmentsRef.current?.focus()}
+                  onSubmitEditing={() => downPaymentRef.current?.focus()}
                   keyboardType="decimal-pad"
                   error={errors.financeValue?.message}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="downPayment"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  ref={downPaymentRef}
+                  value={value}
+                  icon={<Icon name="money-off" color="#000" size={22} />}
+                  placeholder="Entrada"
+                  mt={10}
+                  onChange={onChange}
+                  onSubmitEditing={() => installmentsRef.current?.focus()}
+                  keyboardType="number-pad"
+                  error={errors.downPayment?.message}
                 />
               )}
             />
@@ -102,6 +131,7 @@ export default function Financing({ navigation }: FinancingProps) {
                 />
               )}
             />
+
             <Controller
               control={control}
               name="fee"
@@ -114,7 +144,24 @@ export default function Financing({ navigation }: FinancingProps) {
                   mt={10}
                   keyboardType="decimal-pad"
                   onChange={onChange}
+                  onSubmitEditing={() => valuationRef.current?.focus()}
                   error={errors.fee?.message}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="valuationPercentage"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  ref={valuationRef}
+                  value={value}
+                  icon={<Icon name="money-off" color="#FF3642" size={22} />}
+                  placeholder="Percentual de valorização (Taxa anual)"
+                  mt={10}
+                  keyboardType="decimal-pad"
+                  onChange={onChange}
+                  error={errors.valuationPercentage?.message}
                 />
               )}
             />

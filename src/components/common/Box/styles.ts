@@ -10,6 +10,8 @@ const transformValue = (value: string | number) => {
 };
 
 export const Container = styled.View<Props>`
+  ${(props) => props.flex && `flex: ${props.flex};`}
+
   height: ${({ height }) => (height ? transformValue(height) : "auto")};
   width: ${({ width }) => (width ? transformValue(width) : "auto")};
 

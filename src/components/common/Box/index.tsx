@@ -3,6 +3,7 @@ import React from "react";
 import { Container } from "./styles";
 
 export interface Props {
+  flex?: number;
   children?: React.ReactNode;
   width?: string | number;
   height?: number;
@@ -28,6 +29,7 @@ export interface Props {
 
 const Box: React.FC<Props> = ({
   children,
+  flex,
   width,
   height,
   pd,
@@ -51,6 +53,7 @@ const Box: React.FC<Props> = ({
 }) => {
   return (
     <Container
+      flex={flex}
       width={width}
       height={height}
       pd={pd}

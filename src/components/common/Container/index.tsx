@@ -9,7 +9,7 @@ interface Props {
 
 const Container: React.FC<Props> = ({ children }) => {
   return (
-    <Box width="100%" justify="center" background="#fbfbfb">
+    <Box flex={1} width="100%" justify="center" background="#fbfbfb">
       <S.ContentWrapper>{children}</S.ContentWrapper>
     </Box>
   );

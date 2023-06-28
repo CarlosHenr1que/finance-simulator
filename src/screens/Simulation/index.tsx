@@ -23,7 +23,7 @@ type FinancingNavigationProps = NativeStackScreenProps<
 interface SimulationProps extends FinancingNavigationProps {}
 
 const Simulation: React.FC<SimulationProps> = ({ route }) => {
-  const { financing, fee, installments, installmentsNumber } =
+  const { financing, fee, installments, installmentsNumber, downPayment } =
     route.params.simulation;
   return (
     <Container>
@@ -54,6 +54,14 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
                 iconBackground="#000"
               />
 
+              {downPayment && (
+                <CardInformation
+                  icon={<Icon name="monetization-on" color="#fff" size={22} />}
+                  title={formatCurrency(downPayment) as string}
+                  description="Entrada"
+                  iconBackground="#3DE8BF"
+                />
+              )}
               {installments?.at(-1)?.valuation && (
                 <CardInformation
                   icon={<Icon name="monetization-on" color="#fff" size={22} />}

@@ -3,6 +3,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TextInput,
+  TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
 import Box from "../../../src/components/common/Box";
@@ -22,6 +23,12 @@ import { Controller } from "react-hook-form";
 
 import { SimulateForm, useSimulateFinancingForm } from "./form";
 
+import ReAnimated, {
+  FadeInLeft,
+  FadeOutLeft,
+  Layout,
+} from "react-native-reanimated";
+
 type FinancingNavigationProps = NativeStackScreenProps<
   RootStackParamList,
   "Financing"
@@ -33,6 +40,7 @@ export default function Financing({ navigation }: FinancingProps) {
     control,
     onSubmit,
     formState: { errors },
+    trigger,
   } = useSimulateFinancingForm(handleSuccess);
 
   const financeValueRef = useRef<TextInput>(null);
@@ -41,6 +49,32 @@ export default function Financing({ navigation }: FinancingProps) {
   const valuationRef = useRef<TextInput>(null);
   const downPaymentRef = useRef<TextInput>(null);
   const [loading, setLoading] = useState(false);
+
+  const [step, setStep] = useState(0);
+
+  const nextStep = () => setStep((current) => current + 1);
+  const previousStep = () => setStep((current) => current - 1);
+
+  async function onSimulatePress() {
+    switch (step) {
+      case 0:
+        const ok = await trigger([
+          "financeValue",
+          "downPayment",
+          "installments",
+        ]);
+        if (ok) {
+          nextStep();
+        }
+        break;
+      case 1:
+        if (
+          await trigger(["fee", "valuationPercentage", "constantAmortization"])
+        ) {
+          onSubmit();
+        }
+    }
+  }
 
   async function handleSuccess(values: SimulateForm) {
     setLoading(true);
@@ -76,7 +110,7 @@ export default function Financing({ navigation }: FinancingProps) {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : undefined}
-      keyboardVerticalOffset={60}
+      keyboardVerticalOffset={100}
       style={{ flex: 1 }}
     >
       <StatusBar style="auto" />
@@ -90,109 +124,146 @@ export default function Financing({ navigation }: FinancingProps) {
               Preencha as informações abaixo para simular seu financiamento.
             </Text>
 
+            <Box width="100%" justify="flex-end" height={16}>
+              {step === 1 && (
+                <ReAnimated.View
+                  layout={Layout}
+                  entering={FadeInLeft.duration(400)}
+                  exiting={FadeOutLeft.duration(100)}
+                >
+                  <TouchableOpacity onPress={previousStep}>
+                    <Text weight="bold" size={16}>
+                      Voltar
+                    </Text>
+                  </TouchableOpacity>
+                </ReAnimated.View>
+              )}
+            </Box>
             <Box dir="column" width="100%" mb={20} mt={20}>
-              <Controller
-                control={control}
-                name="financeValue"
-                render={({ field: { onChange, value } }) => (
-                  <Input
-                    ref={financeValueRef}
-                    value={value}
-                    icon={
-                      <Icon name="monetization-on" color="#3DE8BF" size={22} />
-                    }
-                    placeholder="Valor financiado"
-                    mt={10}
-                    onChange={onChange}
-                    keyboardType="decimal-pad"
-                    error={errors.financeValue?.message}
+              {step === 0 && (
+                <>
+                  <Controller
+                    control={control}
+                    name="financeValue"
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        ref={financeValueRef}
+                        value={value}
+                        icon={
+                          <Icon
+                            name="monetization-on"
+                            color="#3DE8BF"
+                            size={22}
+                          />
+                        }
+                        placeholder="Valor financiado"
+                        mt={10}
+                        onChange={onChange}
+                        keyboardType="decimal-pad"
+                        error={errors.financeValue?.message}
+                      />
+                    )}
                   />
-                )}
-              />
-              <Controller
-                control={control}
-                name="downPayment"
-                render={({ field: { onChange, value } }) => (
-                  <Input
-                    ref={downPaymentRef}
-                    value={value}
-                    icon={<Icon name="money-off" color="#000" size={22} />}
-                    placeholder="Entrada"
-                    mt={10}
-                    onChange={onChange}
-                    keyboardType="number-pad"
-                    error={errors.downPayment?.message}
+                  <Controller
+                    control={control}
+                    name="downPayment"
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        ref={downPaymentRef}
+                        value={value}
+                        icon={<Icon name="money-off" color="#000" size={22} />}
+                        placeholder="Entrada"
+                        mt={10}
+                        onChange={onChange}
+                        keyboardType="number-pad"
+                        error={errors.downPayment?.message}
+                      />
+                    )}
                   />
-                )}
-              />
-              <Controller
-                control={control}
-                name="installments"
-                render={({ field: { onChange, value } }) => (
-                  <Input
-                    ref={installmentsRef}
-                    value={value}
-                    icon={<Icon name="money-off" color="#000" size={22} />}
-                    placeholder="Prestações"
-                    mt={10}
-                    onChange={onChange}
-                    keyboardType="number-pad"
-                    error={errors.installments?.message}
+                  <Controller
+                    control={control}
+                    name="installments"
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        ref={installmentsRef}
+                        value={value}
+                        icon={<Icon name="money-off" color="#000" size={22} />}
+                        placeholder="Prestações"
+                        mt={10}
+                        onChange={onChange}
+                        keyboardType="number-pad"
+                        error={errors.installments?.message}
+                      />
+                    )}
                   />
-                )}
-              />
+                </>
+              )}
 
-              <Controller
-                control={control}
-                name="fee"
-                render={({ field: { onChange, value } }) => (
-                  <Input
-                    ref={feeRef}
-                    value={value}
-                    icon={<Icon name="money-off" color="#FF3642" size={22} />}
-                    placeholder="Juros (Anual)"
-                    mt={10}
-                    keyboardType="decimal-pad"
-                    onChange={onChange}
-                    error={errors.fee?.message}
+              {step === 1 && (
+                <>
+                  <Controller
+                    control={control}
+                    name="fee"
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        ref={feeRef}
+                        value={value}
+                        icon={
+                          <Icon name="money-off" color="#FF3642" size={22} />
+                        }
+                        placeholder="Juros (Anual)"
+                        mt={10}
+                        keyboardType="decimal-pad"
+                        onChange={onChange}
+                        error={errors.fee?.message}
+                      />
+                    )}
                   />
-                )}
-              />
-              <Controller
-                control={control}
-                name="valuationPercentage"
-                render={({ field: { onChange, value } }) => (
-                  <Input
-                    ref={valuationRef}
-                    value={value}
-                    icon={<Icon name="money-off" color="#FF3642" size={22} />}
-                    placeholder="Percentual de valorização (Taxa anual)"
-                    mt={10}
-                    keyboardType="decimal-pad"
-                    onChange={onChange}
-                    error={errors.valuationPercentage?.message}
+                  <Controller
+                    control={control}
+                    name="valuationPercentage"
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        ref={valuationRef}
+                        value={value}
+                        icon={
+                          <Icon name="money-off" color="#FF3642" size={22} />
+                        }
+                        placeholder="Percentual de valorização (Taxa anual)"
+                        mt={10}
+                        keyboardType="decimal-pad"
+                        onChange={onChange}
+                        error={errors.valuationPercentage?.message}
+                      />
+                    )}
                   />
-                )}
-              />
-              <Controller
-                control={control}
-                name="constantAmortization"
-                render={({ field: { onChange, value } }) => (
-                  <Input
-                    ref={valuationRef}
-                    value={value}
-                    icon={<Icon name="money-off" color="#FF3642" size={22} />}
-                    placeholder="Amortização constante (Opcional)"
-                    mt={10}
-                    keyboardType="decimal-pad"
-                    onChange={onChange}
-                    error={errors.valuationPercentage?.message}
+                  <Controller
+                    control={control}
+                    name="constantAmortization"
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        ref={valuationRef}
+                        value={value}
+                        icon={
+                          <Icon name="money-off" color="#FF3642" size={22} />
+                        }
+                        placeholder="Amortização constante (Opcional)"
+                        mt={10}
+                        keyboardType="decimal-pad"
+                        onChange={onChange}
+                        error={errors.valuationPercentage?.message}
+                      />
+                    )}
                   />
-                )}
-              />
+                </>
+              )}
             </Box>
 
-            <Button text="Simular" onPress={onSubmit} isLoading={loading} />
+            <Button
+              text={step === 0 ? "Proximo" : "Simular"}
+              onPress={onSimulatePress}
+              isLoading={loading}
+            />
             <Box flex={1} />
           </Box>
         </TouchableWithoutFeedback>

@@ -1,4 +1,10 @@
-import { TextInput } from "react-native";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TextInput,
+  TouchableWithoutFeedback,
+} from "react-native";
 import Box from "../../../src/components/common/Box";
 import Text from "../../../src/components/common/Text";
 
@@ -66,110 +72,113 @@ export default function Financing({ navigation }: FinancingProps) {
   }
 
   return (
-    <>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={60}
+      style={{ flex: 1 }}
+    >
       <StatusBar style="auto" />
       <Container>
-        <Box dir="column" px={16} pt={30}>
-          <Text size={24} weight="bold">
-            Simular financiamento
-          </Text>
-          <Text size={14} color="secondary">
-            Preencha as informações abaixo para simular seu financiamento.
-          </Text>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Box flex={1} justify="flex-end" dir="column" px={16} pt={30}>
+            <Text size={24} weight="bold">
+              Simular financiamento
+            </Text>
+            <Text size={14} color="secondary">
+              Preencha as informações abaixo para simular seu financiamento.
+            </Text>
 
-          <Box dir="column" width="100%" mb={20} mt={20}>
-            <Controller
-              control={control}
-              name="financeValue"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  ref={financeValueRef}
-                  value={value}
-                  icon={
-                    <Icon name="monetization-on" color="#3DE8BF" size={22} />
-                  }
-                  placeholder="Valor financiado"
-                  mt={10}
-                  onChange={onChange}
-                  onSubmitEditing={() => downPaymentRef.current?.focus()}
-                  keyboardType="decimal-pad"
-                  error={errors.financeValue?.message}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="downPayment"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  ref={downPaymentRef}
-                  value={value}
-                  icon={<Icon name="money-off" color="#000" size={22} />}
-                  placeholder="Entrada"
-                  mt={10}
-                  onChange={onChange}
-                  onSubmitEditing={() => installmentsRef.current?.focus()}
-                  keyboardType="number-pad"
-                  error={errors.downPayment?.message}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="installments"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  ref={installmentsRef}
-                  value={value}
-                  icon={<Icon name="money-off" color="#000" size={22} />}
-                  placeholder="Prestações"
-                  mt={10}
-                  onChange={onChange}
-                  onSubmitEditing={() => feeRef.current?.focus()}
-                  keyboardType="number-pad"
-                  error={errors.installments?.message}
-                />
-              )}
-            />
+            <Box dir="column" width="100%" mb={20} mt={20}>
+              <Controller
+                control={control}
+                name="financeValue"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    ref={financeValueRef}
+                    value={value}
+                    icon={
+                      <Icon name="monetization-on" color="#3DE8BF" size={22} />
+                    }
+                    placeholder="Valor financiado"
+                    mt={10}
+                    onChange={onChange}
+                    keyboardType="decimal-pad"
+                    error={errors.financeValue?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="downPayment"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    ref={downPaymentRef}
+                    value={value}
+                    icon={<Icon name="money-off" color="#000" size={22} />}
+                    placeholder="Entrada"
+                    mt={10}
+                    onChange={onChange}
+                    keyboardType="number-pad"
+                    error={errors.downPayment?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="installments"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    ref={installmentsRef}
+                    value={value}
+                    icon={<Icon name="money-off" color="#000" size={22} />}
+                    placeholder="Prestações"
+                    mt={10}
+                    onChange={onChange}
+                    keyboardType="number-pad"
+                    error={errors.installments?.message}
+                  />
+                )}
+              />
 
-            <Controller
-              control={control}
-              name="fee"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  ref={feeRef}
-                  value={value}
-                  icon={<Icon name="money-off" color="#FF3642" size={22} />}
-                  placeholder="Juros (Anual)"
-                  mt={10}
-                  keyboardType="decimal-pad"
-                  onChange={onChange}
-                  onSubmitEditing={() => valuationRef.current?.focus()}
-                  error={errors.fee?.message}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="valuationPercentage"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  ref={valuationRef}
-                  value={value}
-                  icon={<Icon name="money-off" color="#FF3642" size={22} />}
-                  placeholder="Percentual de valorização (Taxa anual)"
-                  mt={10}
-                  keyboardType="decimal-pad"
-                  onChange={onChange}
-                  error={errors.valuationPercentage?.message}
-                />
-              )}
-            />
+              <Controller
+                control={control}
+                name="fee"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    ref={feeRef}
+                    value={value}
+                    icon={<Icon name="money-off" color="#FF3642" size={22} />}
+                    placeholder="Juros (Anual)"
+                    mt={10}
+                    keyboardType="decimal-pad"
+                    onChange={onChange}
+                    error={errors.fee?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="valuationPercentage"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    ref={valuationRef}
+                    value={value}
+                    icon={<Icon name="money-off" color="#FF3642" size={22} />}
+                    placeholder="Percentual de valorização (Taxa anual)"
+                    mt={10}
+                    keyboardType="decimal-pad"
+                    onChange={onChange}
+                    error={errors.valuationPercentage?.message}
+                  />
+                )}
+              />
+            </Box>
+
+            <Button text="Simular" onPress={onSubmit} isLoading={loading} />
+            <Box flex={1} />
           </Box>
-
-          <Button text="Simular" onPress={onSubmit} isLoading={loading} />
-        </Box>
+        </TouchableWithoutFeedback>
       </Container>
-    </>
+    </KeyboardAvoidingView>
   );
 }

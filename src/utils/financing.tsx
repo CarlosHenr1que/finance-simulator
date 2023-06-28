@@ -42,16 +42,20 @@ export const calculateFinance = async (
   downPayment: number,
   installments: number,
   fee: number,
-  valuationPercentage?: number
+  valuationPercentage?: number,
+  constantAmortization: number = 0
 ): Promise<InstallmentObject[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       const installmentsObjects: InstallmentObject[] = [];
       const amortization = calculateAmortization(
-        Number(financeValue),
+        Number(financeValue - downPayment),
         Number(installments)
       );
-      const initialDebit = calculateDebit(Number(financeValue), amortization);
+      const initialDebit = calculateDebit(
+        Number(financeValue),
+        amortization + constantAmortization
+      );
       const initialValuation = calculatePropertyValuation(
         transformAnnuallyFeeToMonthly(valuationPercentage as number),
         financeValue + downPayment
@@ -61,9 +65,14 @@ export const calculateFinance = async (
         const isFirst = index == 0;
 
         const previousInstallment = installmentsObjects[index - 1];
+
+        if (!isFirst && previousInstallment.debit <= 0) {
+          break;
+        }
+
         const currentMonthDebit = isFirst
           ? initialDebit
-          : previousInstallment.debit - amortization;
+          : previousInstallment.debit - (amortization + constantAmortization);
 
         const feeValue = calculateFeeValue(
           Number(transformAnnuallyFeeToMonthly(fee)) / 100,

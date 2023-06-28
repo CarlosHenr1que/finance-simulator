@@ -50,13 +50,15 @@ export default function Financing({ navigation }: FinancingProps) {
       fee,
       valuationPercentage,
       downPayment,
+      constantAmortization,
     } = values;
     const installmentsObject = await calculateFinance(
       Number(financeValue),
       Number(downPayment),
       Number(installments),
       Number(fee.replace(",", ".")),
-      Number(valuationPercentage?.replace(",", "."))
+      Number(valuationPercentage?.replace(",", ".")),
+      Number(constantAmortization)
     );
     setLoading(false);
 
@@ -165,6 +167,22 @@ export default function Financing({ navigation }: FinancingProps) {
                     value={value}
                     icon={<Icon name="money-off" color="#FF3642" size={22} />}
                     placeholder="Percentual de valorização (Taxa anual)"
+                    mt={10}
+                    keyboardType="decimal-pad"
+                    onChange={onChange}
+                    error={errors.valuationPercentage?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="constantAmortization"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    ref={valuationRef}
+                    value={value}
+                    icon={<Icon name="money-off" color="#FF3642" size={22} />}
+                    placeholder="Amortização constante (Opcional)"
                     mt={10}
                     keyboardType="decimal-pad"
                     onChange={onChange}

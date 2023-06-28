@@ -54,12 +54,16 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
                 iconBackground="#000"
               />
 
-              {/* <CardInformation
-                icon={<Icon name="monetization-on" color="#fff" size={22} />}
-                title="R$ 280.000,00"
-                description="Valorização"
-                iconBackground="#3DE8BF"
-              /> */}
+              {installments?.at(-1)?.valuation && (
+                <CardInformation
+                  icon={<Icon name="monetization-on" color="#fff" size={22} />}
+                  title={
+                    formatCurrency(installments?.at(-1)?.valuation) as string
+                  }
+                  description="Valorização"
+                  iconBackground="#3DE8BF"
+                />
+              )}
             </Stack>
           </Box>
           <ReAnimated.View

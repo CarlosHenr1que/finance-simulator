@@ -17,10 +17,16 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const AppRoutes: React.FC = () => {
   return (
     <Stack.Navigator>
-      <Stack.Group screenOptions={{ headerShown: false }}>
+      <Stack.Group
+        screenOptions={{
+          headerStyle: { backgroundColor: "#fbfbfb" },
+          title: "",
+          headerBackTitle: "",
+        }}
+      >
         <Stack.Screen name="Financing" component={Financing} />
+        <Stack.Screen name="Simulation" component={Simulation} />
       </Stack.Group>
-      <Stack.Screen name="Simulation" component={Simulation} />
     </Stack.Navigator>
   );
 };

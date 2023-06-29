@@ -1,5 +1,5 @@
 export const formatCurrency = (value: number | undefined) => {
-  if (!value) {
+  if (!value && value !== 0) {
     return;
   }
   const priceStr: string = value.toFixed(2);

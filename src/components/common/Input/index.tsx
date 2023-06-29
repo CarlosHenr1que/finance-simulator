@@ -70,7 +70,7 @@ const Input: React.FC<Props> = React.forwardRef(
 
     return (
       <Box dir="column" {...rest}>
-        <Box height={12} justify="space-between">
+        <Box height={14} justify="space-between">
           {value && (
             <ReAnimated.View
               layout={Layout}

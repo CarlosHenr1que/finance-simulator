@@ -15,6 +15,7 @@ import { RootStackParamList } from "../../routes/app.routes";
 import { formatCurrency } from "../../utils/currency";
 
 import ReAnimated, { SlideInDown, Layout } from "react-native-reanimated";
+import { getInstallmentItems } from "./utils";
 
 type FinancingNavigationProps = NativeStackScreenProps<
   RootStackParamList,
@@ -29,15 +30,6 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
   const getFinancingValue = () => {
     if (downPayment) return formatCurrency(financing - downPayment);
     return formatCurrency(financing);
-  };
-
-  const formatMonthToDuration = (value: number) => {
-    const [years, months] = String(value / 12).split(".");
-
-    if (months) {
-      return `${years} Anos ${months[0]} meses`;
-    }
-    return `${years} Anos`;
   };
 
   return (
@@ -61,22 +53,7 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
                 title={String(installmentsNumber)}
                 description="Prestações"
                 iconBackground="#000"
-                items={[
-                  {
-                    title: formatMonthToDuration(installments.length),
-                    description: "Duração",
-                  },
-                  {
-                    title: String(installments.length),
-                    description: "Pagas",
-                  },
-                  {
-                    title: formatCurrency(
-                      installments.at(-1)?.installment
-                    ) as string,
-                    description: "Ultima",
-                  },
-                ]}
+                items={getInstallmentItems(installments)}
               />
               <CardInformation
                 icon={<Icon name="monetization-on" color="#fff" size={22} />}

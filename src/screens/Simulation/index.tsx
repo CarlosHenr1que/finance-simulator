@@ -33,7 +33,11 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
 
   const formatMonthToDuration = (value: number) => {
     const [years, months] = String(value / 12).split(".");
-    return `${years} Anos ${months[0]} meses`;
+
+    if (months) {
+      return `${years} Anos ${months[0]} meses`;
+    }
+    return `${years} Anos`;
   };
 
   return (
@@ -88,7 +92,7 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
                   iconBackground="#3DE8BF"
                 />
               )}
-              {installments?.at(-1)?.valuation && (
+              {installments?.at(-1)?.valuation !== undefined && (
                 <CardInformation
                   icon={<Icon name="monetization-on" color="#fff" size={22} />}
                   title={

@@ -24,7 +24,7 @@ const calculatePropertyValuation = (
   valuationPercentage?: number,
   propertyValue?: number
 ) => {
-  if (!valuationPercentage || !propertyValue) return;
+  if (!valuationPercentage || !propertyValue) return 0;
 
   return (propertyValue += propertyValue * (valuationPercentage / 100));
 };
@@ -53,7 +53,7 @@ export const calculateFinance = async (
         Number(installments)
       );
       const initialDebit = calculateDebit(
-        Number(financeValue),
+        Number(financeValue - downPayment),
         amortization + constantAmortization
       );
       const initialValuation = calculatePropertyValuation(

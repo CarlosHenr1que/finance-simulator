@@ -88,11 +88,11 @@ export default function Financing({ navigation }: FinancingProps) {
     } = values;
     const installmentsObject = await calculateFinance(
       Number(financeValue),
-      Number(downPayment),
+      Number(downPayment ?? 0),
       Number(installments),
       Number(fee.replace(",", ".")),
-      Number(valuationPercentage?.replace(",", ".")),
-      Number(constantAmortization)
+      Number(valuationPercentage ? valuationPercentage?.replace(",", ".") : 0),
+      Number(constantAmortization ?? 0)
     );
     setLoading(false);
 
@@ -251,7 +251,7 @@ export default function Financing({ navigation }: FinancingProps) {
                         mt={10}
                         keyboardType="decimal-pad"
                         onChange={onChange}
-                        error={errors.valuationPercentage?.message}
+                        error={errors.constantAmortization?.message}
                       />
                     )}
                   />

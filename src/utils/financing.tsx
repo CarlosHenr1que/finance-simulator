@@ -32,7 +32,9 @@ const calculatePropertyValuation = (
 interface InstallmentObject {
   amortization: number;
   fee: number;
+  totalFee: number;
   installment: number;
+  installmentAmount: number;
   debit: number;
   valuation?: number;
 }
@@ -60,6 +62,8 @@ export const calculateFinance = async (
         transformAnnuallyFeeToMonthly(valuationPercentage as number),
         financeValue + downPayment
       );
+      var totalFee = 0;
+      var installmentAmount = 0;
 
       for (let index = 0; index < Number(installments); index++) {
         const isFirst = index == 0;
@@ -87,10 +91,14 @@ export const calculateFinance = async (
               previousInstallment.valuation
             );
 
+        totalFee += feeValue;
+        installmentAmount += installment + constantAmortization;
         installmentsObjects.push({
           amortization,
           fee: feeValue,
+          totalFee,
           installment,
+          installmentAmount,
           debit: currentMonthDebit,
           valuation,
         });

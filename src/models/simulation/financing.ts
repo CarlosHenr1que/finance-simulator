@@ -1,7 +1,9 @@
 export interface Installment {
   amortization: number;
   fee: number;
+  totalFee: number;
   installment: number;
+  installmentAmount: number;
   debit: number;
   valuation?: number;
 }

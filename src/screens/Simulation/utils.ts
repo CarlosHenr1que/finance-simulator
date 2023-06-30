@@ -12,16 +12,16 @@ const formatMonthToDuration = (value: number) => {
 export const getInstallmentItems = (installments: any[]) => {
   return [
     {
-      title: formatMonthToDuration(installments.length),
-      description: "Duração",
+      title: "Duração",
+      description: formatMonthToDuration(installments.length),
     },
     {
-      title: String(installments.length),
-      description: "Pagas",
+      title: "Pagas",
+      description: String(installments.length),
     },
     {
-      title: formatCurrency(installments.at(-1)?.installment) as string,
-      description: "Ultima",
+      title: "Ultima",
+      description: formatCurrency(installments.at(-1)?.installment) as string,
     },
   ];
 };

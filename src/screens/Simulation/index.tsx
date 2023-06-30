@@ -60,6 +60,20 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
                 title={String(fee).replace(".", ",") + "%"}
                 description="Taxa de juros anual"
                 iconBackground="#FF3642"
+                items={[
+                  {
+                    title: "Total juros",
+                    description: formatCurrency(
+                      installments.at(-1)?.totalFee
+                    ) as string,
+                  },
+                  {
+                    title: "Total pago",
+                    description: formatCurrency(
+                      installments.at(-1)?.installmentAmount
+                    ) as string,
+                  },
+                ]}
               />
               {downPayment && (
                 <CardInformation
@@ -69,7 +83,7 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
                   iconBackground="#3DE8BF"
                 />
               )}
-              {installments?.at(-1)?.valuation !== undefined && (
+              {!!installments?.at(-1)?.valuation && (
                 <CardInformation
                   icon={<Icon name="monetization-on" color="#fff" size={22} />}
                   title={

@@ -13,6 +13,7 @@ import ReAnimated, {
   FadeOutLeft,
   Layout,
 } from "react-native-reanimated";
+import { DefaultTheme } from "styled-components/native";
 
 interface Props extends BoxProps {
   ref?: React.ForwardedRef<unknown>;
@@ -57,15 +58,16 @@ const Input: React.FC<Props> = React.forwardRef(
     };
 
     const getBorderColor = () => {
+      var color: keyof DefaultTheme["colors"] = "secondary";
       if (!!error) {
-        return "#FF3642";
+        color = "error";
       }
 
       if (isFocused) {
-        return "#1D0C82";
+        color = "primary";
       }
 
-      return "#fff";
+      return color;
     };
 
     return (
@@ -96,7 +98,7 @@ const Input: React.FC<Props> = React.forwardRef(
           )}
         </Box>
         <Box
-          background={"#fff"}
+          background="secondary"
           radius={8}
           px={16}
           align="center"
@@ -109,7 +111,6 @@ const Input: React.FC<Props> = React.forwardRef(
             ref={ref}
             value={value}
             placeholder={placeholder}
-            placeholderTextColor={"#bcbcbc"}
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChangeText={onChange}

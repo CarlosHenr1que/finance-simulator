@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Container } from "./styles";
+import { DefaultTheme } from "styled-components/native";
 
 export interface Props {
   flex?: number;
@@ -15,7 +16,7 @@ export interface Props {
   pt?: number;
   pb?: number;
   dir?: "row" | "column";
-  background?: string;
+  background?: keyof DefaultTheme["colors"] | string;
   align?: "center";
   justify?: string;
   mt?: number;
@@ -23,7 +24,7 @@ export interface Props {
   mr?: number;
   mb?: number;
   radius?: number;
-  borderColor?: string;
+  borderColor?: keyof DefaultTheme["colors"] | string;
   borderWidth?: number;
 }
 

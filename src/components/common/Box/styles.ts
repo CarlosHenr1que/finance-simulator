@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled, { DefaultTheme } from "styled-components/native";
 import { Props } from ".";
 
 const transformValue = (value: string | number) => {
@@ -8,6 +8,8 @@ const transformValue = (value: string | number) => {
 
   return value;
 };
+
+type Colors = keyof DefaultTheme["colors"];
 
 export const Container = styled.View<Props>`
   ${(props) => props.flex && `flex: ${props.flex};`}
@@ -37,10 +39,18 @@ export const Container = styled.View<Props>`
      ${(props) => props.mb && `margin-bottom: ${props.mb}px;`}
 
   flex-direction: ${(props) => props.dir};
-  ${(props) => props.background && `background-color: ${props.background};`}
+  ${(props) =>
+    props.theme.colors[props.background as keyof DefaultTheme["colors"]]
+      ? `background-color: ${props.theme.colors[props.background as Colors]};`
+      : `background-color: ${props.background};`}
+
   ${(props) => props.radius && `border-radius: ${props.radius}px;`}
   
 
-  ${(props) => props.borderColor && `border-color: ${props.borderColor};`}
+  ${(props) =>
+    props.theme.colors[props.borderColor as Colors]
+      ? `border-color: ${props.theme.colors[props.borderColor as Colors]};`
+      : `border-color: ${props.borderColor};`}
+  
   ${(props) => props.borderWidth && `border-width: ${props.borderWidth}px;`}
 `;

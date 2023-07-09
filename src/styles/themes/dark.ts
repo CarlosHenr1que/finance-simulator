@@ -6,17 +6,15 @@ export default {
   title: "default",
 
   colors: {
-    background: "#fbfbfb",
+    background: "#000000",
     primary: "#1D0C82",
-    secondary: "#ffffff",
-    tertiary: "#F2F2F2",
-
-    error: "#D30000",
+    secondary: "#0F0F0F",
+    tertiary: "#0F0F0F",
   },
 
   textColors: {
-    primary: "#000000",
-    secondary: "#8D8D8D",
+    primary: "#FFFFFF",
+    secondary: "#B9B9B9",
     placeHolder: "#8D8D8D",
     button: "#fff",
     white: "#fff",

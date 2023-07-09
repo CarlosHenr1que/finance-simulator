@@ -8,6 +8,8 @@ declare module "styled-components" {
       background: string;
       primary: string;
       secondary: string;
+      tertiary: string;
+      error: string;
     };
 
     textColors: {

@@ -6,6 +6,8 @@ import { Props as BoxProps } from "../Box";
 import { KeyboardTypeOptions } from "react-native";
 import Text from "../Text";
 
+import Icon from "@expo/vector-icons/MaterialIcons";
+
 import ReAnimated, {
   FadeInDown,
   FadeInLeft,
@@ -22,6 +24,7 @@ interface Props extends BoxProps {
   error?: string | undefined;
   type?: "default" | "area";
   placeholder: string;
+  tollTip?: boolean;
   onChange: (text: string) => void;
   onFocus?: (isFocused: boolean) => void;
   onSubmitEditing?: () => void;
@@ -40,6 +43,7 @@ const Input: React.FC<Props> = React.forwardRef(
       onFocus,
       onSubmitEditing,
       keyboardType,
+      tollTip,
       ...rest
     },
     ref
@@ -98,31 +102,36 @@ const Input: React.FC<Props> = React.forwardRef(
           )}
         </Box>
         <Box
+          width="100%"
           background="secondary"
           radius={8}
           px={16}
-          align="center"
           borderWidth={2}
           borderColor={getBorderColor()}
           mt={8}
+          justify="space-between"
+          align="center"
         >
-          {icon && icon}
-          <S.TextInput
-            ref={ref}
-            value={value}
-            placeholder={placeholder}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            onChangeText={onChange}
-            isFocused={isFocused}
-            type={type}
-            multiline={type === "area"}
-            hasError={!!error}
-            style={{ paddingLeft: 10, outline: "none" }}
-            returnKeyType="done"
-            onSubmitEditing={onSubmitEditing}
-            keyboardType={keyboardType}
-          />
+          <Box align="center">
+            {icon && icon}
+            <S.TextInput
+              ref={ref}
+              value={value}
+              placeholder={placeholder}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              onChangeText={onChange}
+              isFocused={isFocused}
+              type={type}
+              multiline={type === "area"}
+              hasError={!!error}
+              style={{ paddingLeft: 10, outline: "none" }}
+              returnKeyType="done"
+              onSubmitEditing={onSubmitEditing}
+              keyboardType={keyboardType}
+            />
+          </Box>
+          {tollTip && <Icon size={22} color="#06A5D8" name="info" />}
         </Box>
       </Box>
     );

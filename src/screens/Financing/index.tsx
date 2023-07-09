@@ -1,6 +1,5 @@
 import {
   Keyboard,
-  TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -12,7 +11,7 @@ import Input from "../../../src/components/common/Input";
 
 import Icon from "@expo/vector-icons/MaterialIcons";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Button from "../../components/common/Button";
 import { RootStackParamList } from "../../routes/app.routes";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -125,7 +124,7 @@ export default function Financing({ navigation }: FinancingProps) {
 
   return (
     <>
-      <StatusBar style="light" />
+      <StatusBar style="auto" />
       <Container>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Box flex={1} justify="flex-end" dir="column" px={16} pt={60}>

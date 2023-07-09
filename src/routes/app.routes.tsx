@@ -22,6 +22,7 @@ const AppRoutes: React.FC = () => {
           headerStyle: { backgroundColor: "#fbfbfb" },
           title: "",
           headerBackTitle: "",
+          headerShown: false,
         }}
       >
         <Stack.Screen name="Financing" component={Financing} />

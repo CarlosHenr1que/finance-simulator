@@ -53,7 +53,7 @@ export const useSimulateFinancingForm = (
 ) => {
   const { handleSubmit, ...form } = useForm({
     resolver: yupResolver(simulationFormSchema),
-    defaultValues: {},
+    mode: "onChange",
   });
 
   const onSubmit = handleSubmit((values) => {

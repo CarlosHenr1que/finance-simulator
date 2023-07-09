@@ -1,10 +1,11 @@
 import styled, { DefaultTheme } from "styled-components/native";
 
+type TextColor = keyof DefaultTheme["textColors"];
 interface TextProps {
   size: number;
   weight?: "regular" | "bold";
   align?: "center" | "end" | "start";
-  color?: keyof DefaultTheme["textColors"];
+  color?: TextColor | string;
 }
 
 export const Text = styled.Text<TextProps>`
@@ -14,7 +15,5 @@ export const Text = styled.Text<TextProps>`
     props.theme.font[props.weight as "regular" | "bold"]};
   text-align: ${(props) => (props.align ? props.align : "left")};
   color: ${(props) =>
-    props.color
-      ? props.theme.textColors[props.color]
-      : props.theme.textColors.primary};
+    props.theme.textColors[props.color as TextColor] ?? props.color};
 `;

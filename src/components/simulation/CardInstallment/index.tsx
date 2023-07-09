@@ -14,7 +14,14 @@ const CardInstallment: React.FC<CardInstallmentProps> = ({
   debit,
 }) => {
   return (
-    <Box dir="column" width="100%" background="#fff" py={8} px={8} radius={8}>
+    <Box
+      dir="column"
+      width="100%"
+      background="secondary"
+      py={8}
+      px={8}
+      radius={8}
+    >
       <Box width="100%" justify="space-between">
         <Text size={14} color="secondary">
           Parcela
@@ -27,13 +34,13 @@ const CardInstallment: React.FC<CardInstallmentProps> = ({
         </Text>
       </Box>
       <Box mt={8} width="100%" justify="space-between">
-        <Text size={14} weight="bold">
+        <Text color="primary" size={14} weight="bold">
           {order}
         </Text>
-        <Text size={14} weight="bold">
+        <Text color="primary" size={14} weight="bold">
           {price}
         </Text>
-        <Text size={14} weight="bold">
+        <Text color="primary" size={14} weight="bold">
           {debit}
         </Text>
       </Box>

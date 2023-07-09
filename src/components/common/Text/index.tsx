@@ -1,14 +1,13 @@
 import React from "react";
 import * as S from "./styles";
 import { DefaultTheme } from "styled-components/native";
-import { useTheme } from "styled-components";
 
 export interface Props {
   children: React.ReactNode;
   size: number;
   weight?: "regular" | "bold";
-  align?: "center" | "end" | "start";
-  color?: keyof DefaultTheme["textColors"];
+  align?: "center" | "end" | "start" | "left" | "right";
+  color?: keyof DefaultTheme["textColors"] | string;
 }
 
 const Text: React.FC<Props> = ({

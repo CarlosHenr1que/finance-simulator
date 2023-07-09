@@ -35,11 +35,11 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
   return (
     <Container>
       <ScrollView>
-        <Box dir="column" background="#FBFBFB" pt={30}>
+        <Box dir="column" pt={60}>
           <Box dir="column" px={16}>
             <Box width="100%" justify="space-between">
               <Box dir="column">
-                <Text size={24} weight="bold">
+                <Text color="primary" size={24} weight="bold">
                   {getFinancingValue()}
                 </Text>
                 <Text size={14}>Valor financiado</Text>
@@ -100,7 +100,14 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
             layout={Layout}
             entering={SlideInDown.duration(1000)}
           >
-            <Stack mt={20} spacing={10} px={16} pt={20} background="#F2F2F2">
+            <Stack
+              mt={20}
+              spacing={10}
+              px={16}
+              pt={20}
+              background="tertiary"
+              radius={8}
+            >
               {installments.map((item: any, index: number) => (
                 <CardInstallment
                   key={String(index)}

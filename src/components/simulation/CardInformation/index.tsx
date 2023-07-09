@@ -34,7 +34,14 @@ export const CardInformation = ({
     entering={FadeInLeft.duration(1000)}
     exiting={FadeOutLeft.duration(100)}
   >
-    <Box dir="column" background="#fff" width="100%" py={8} px={8} radius={8}>
+    <Box
+      dir="column"
+      background="secondary"
+      width="100%"
+      py={8}
+      px={8}
+      radius={8}
+    >
       <Box dir="row" align="center">
         <Box
           width={30}
@@ -48,7 +55,7 @@ export const CardInformation = ({
           {icon}
         </Box>
         <Box dir="column">
-          <Text weight="bold" size={18}>
+          <Text color="primary" weight="bold" size={18}>
             {title}
           </Text>
           <Text color="secondary" size={14}>
@@ -59,7 +66,7 @@ export const CardInformation = ({
       <Box justify="space-between" align="center" mt={10} px={8}>
         {items?.map((item) => (
           <Box dir="column">
-            <Text weight="bold" size={16}>
+            <Text color="primary" weight="bold" size={16}>
               {item.title}
             </Text>
             <Text color="secondary" size={14}>

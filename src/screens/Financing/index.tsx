@@ -11,7 +11,7 @@ import Input from "../../../src/components/common/Input";
 
 import Icon from "@expo/vector-icons/MaterialIcons";
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../components/common/Button";
 import { RootStackParamList } from "../../routes/app.routes";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -121,6 +121,10 @@ export default function Financing({ navigation }: FinancingProps) {
       },
     });
   }
+
+  useEffect(() => {
+    setFocus("financeValue");
+  }, []);
 
   return (
     <>

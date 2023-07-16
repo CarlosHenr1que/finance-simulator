@@ -17,7 +17,13 @@ export interface Props {
   pb?: number;
   dir?: "row" | "column";
   background?: keyof DefaultTheme["colors"] | string;
-  align?: "center";
+  align?:
+    | "flex-start"
+    | "flex-end"
+    | "center"
+    | "space-between"
+    | "space-around"
+    | "space-evenly";
   justify?: string;
   mt?: number;
   ml?: number;

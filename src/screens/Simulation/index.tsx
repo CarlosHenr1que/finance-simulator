@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Container from "../../components/common/Container";
 import Text from "../../components/common/Text";
@@ -16,6 +16,10 @@ import { formatCurrency } from "../../utils/currency";
 
 import ReAnimated, { SlideInDown, Layout } from "react-native-reanimated";
 import { getInstallmentItems } from "./utils";
+import AmortizationForm from "./components/AmortizationForm";
+import OptionsModal from "./components/OptionsModal";
+import { AmortizationForm as AmortizationFormValues } from "./components/AmortizationForm/form";
+import { calculateFinance } from "../../utils/financing";
 
 type FinancingNavigationProps = NativeStackScreenProps<
   RootStackParamList,
@@ -24,17 +28,53 @@ type FinancingNavigationProps = NativeStackScreenProps<
 interface SimulationProps extends FinancingNavigationProps {}
 
 const Simulation: React.FC<SimulationProps> = ({ route }) => {
+  const [isOptionsModalVisible, setIsOptionsModalVisible] = useState(false);
+  const [simulation, setSimulation] = useState(route.params.simulation);
   const { financing, fee, installments, installmentsNumber, downPayment } =
-    route.params.simulation;
+    simulation;
 
   const getFinancingValue = () => {
     if (downPayment) return formatCurrency(financing - downPayment);
     return formatCurrency(financing);
   };
 
+  const handleAmortization = async (values: AmortizationFormValues) => {
+    setIsOptionsModalVisible(false);
+
+    const installmentsObject = await calculateFinance(
+      financing,
+      downPayment ?? 0,
+      installmentsNumber,
+      fee,
+      5,
+      Number(values.constantAmortization)
+    );
+
+    setSimulation({
+      financing,
+      downPayment: Number(downPayment),
+      fee,
+      installmentsNumber,
+      installments: installmentsObject,
+    });
+  };
+
   return (
     <Container>
       <ScrollView>
+        <OptionsModal
+          visible={isOptionsModalVisible}
+          title="Opções"
+          options={[
+            {
+              title: "Amortização",
+              description: "Realizar amortização no seu financiamento",
+              content: <AmortizationForm onSuccess={handleAmortization} />,
+            },
+          ]}
+          onClose={() => setIsOptionsModalVisible(false)}
+        />
+
         <Box dir="column" pt={60}>
           <Box dir="column" px={16}>
             <Box width="100%" justify="space-between">
@@ -44,7 +84,11 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
                 </Text>
                 <Text size={14}>Valor financiado</Text>
               </Box>
-              <Button width={80} text="Opções" onPress={() => {}} />
+              <Button
+                width={80}
+                text="Opções"
+                onPress={() => setIsOptionsModalVisible(true)}
+              />
             </Box>
 
             <Stack spacing={10} mt={20}>

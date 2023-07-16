@@ -27,6 +27,7 @@ import ReAnimated, {
   Layout,
 } from "react-native-reanimated";
 import ToolTip from "../../components/common/Input/ToolTip";
+import { useFinancingSimulation } from "../../hooks/contexts/financing/simulation";
 
 type FinancingNavigationProps = NativeStackScreenProps<
   RootStackParamList,
@@ -43,6 +44,8 @@ export default function Financing({ navigation }: FinancingProps) {
     setFocus,
   } = useSimulateFinancingForm(handleSuccess);
   const [loading, setLoading] = useState(false);
+
+  const { addSimulation } = useFinancingSimulation();
 
   const [isFeeTooTipVisible, setFeeTooTipVisible] = useState(true);
   const [isValuationToolTipVisible, setValuationTollTipVisible] =
@@ -109,15 +112,15 @@ export default function Financing({ navigation }: FinancingProps) {
     );
     setLoading(false);
 
-    navigation.navigate("Simulation", {
-      simulation: {
-        financing: Number(financeValue),
-        downPayment: Number(downPayment),
-        fee: Number(fee.replace(",", ".")),
-        installmentsNumber: Number(installments),
-        installments: installmentsObject,
-      },
+    addSimulation({
+      financing: Number(financeValue),
+      downPayment: Number(downPayment),
+      fee: Number(fee.replace(",", ".")),
+      installmentsNumber: Number(installments),
+      installments: installmentsObject,
     });
+
+    navigation.navigate("Simulation");
   }
 
   useEffect(() => {

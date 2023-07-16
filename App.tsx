@@ -11,6 +11,7 @@ import {
 } from "@expo-google-fonts/nunito";
 
 import Routes from "./src/routes";
+import AppProvider from "./src/hooks/contexts";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -22,7 +23,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Routes />
+      <AppProvider>
+        <Routes />
+      </AppProvider>
     </ThemeProvider>
   );
 }

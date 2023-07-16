@@ -10,8 +10,7 @@ import Icon from "@expo/vector-icons/MaterialIcons";
 import Stack from "../../components/common/Stack";
 import { ScrollView } from "react-native";
 import CardInstallment from "../../components/simulation/CardInstallment";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../routes/app.routes";
+
 import { formatCurrency } from "../../utils/currency";
 
 import ReAnimated, { SlideInDown, Layout } from "react-native-reanimated";
@@ -20,16 +19,15 @@ import AmortizationForm from "./components/AmortizationForm";
 import OptionsModal from "./components/OptionsModal";
 import { AmortizationForm as AmortizationFormValues } from "./components/AmortizationForm/form";
 import { calculateFinance } from "../../utils/financing";
+import { useFinancingSimulation } from "../../hooks/contexts/financing/simulation";
 
-type FinancingNavigationProps = NativeStackScreenProps<
-  RootStackParamList,
-  "Simulation"
->;
-interface SimulationProps extends FinancingNavigationProps {}
-
-const Simulation: React.FC<SimulationProps> = ({ route }) => {
+const Simulation: React.FC = () => {
+  const {
+    data: { simulation },
+    addSimulation,
+  } = useFinancingSimulation();
   const [isOptionsModalVisible, setIsOptionsModalVisible] = useState(false);
-  const [simulation, setSimulation] = useState(route.params.simulation);
+
   const { financing, fee, installments, installmentsNumber, downPayment } =
     simulation;
 
@@ -50,7 +48,7 @@ const Simulation: React.FC<SimulationProps> = ({ route }) => {
       Number(values.constantAmortization)
     );
 
-    setSimulation({
+    addSimulation({
       financing,
       downPayment: Number(downPayment),
       fee,

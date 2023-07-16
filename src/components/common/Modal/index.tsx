@@ -4,6 +4,7 @@ import { Modal, TouchableOpacity } from "react-native";
 import Box from "../Box";
 
 import Icon from "@expo/vector-icons/MaterialIcons";
+import { useTheme } from "styled-components/native";
 
 interface BaseModalProps {
   children: ReactNode;
@@ -16,6 +17,7 @@ const BaseModal: React.FC<BaseModalProps> = ({
   children,
   onClose,
 }) => {
+  const { textColors } = useTheme();
   const close = () => {
     onClose();
   };
@@ -39,7 +41,7 @@ const BaseModal: React.FC<BaseModalProps> = ({
         >
           <Box width="100%" justify="flex-end">
             <TouchableOpacity onPress={close}>
-              <Icon name="close" size={22} color="#000" />
+              <Icon name="close" size={22} color={textColors.primary} />
             </TouchableOpacity>
           </Box>
           {children}

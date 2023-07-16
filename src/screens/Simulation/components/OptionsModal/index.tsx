@@ -11,6 +11,7 @@ import ReAnimated, {
   FadeOutLeft,
   Layout,
 } from "react-native-reanimated";
+import { useTheme } from "styled-components/native";
 
 interface Option {
   title: string;
@@ -31,6 +32,7 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
   options,
   onClose,
 }) => {
+  const { colors, textColors } = useTheme();
   const [selectedOption, setSelectedOption] = useState<number>(-1);
 
   useEffect(() => {
@@ -55,8 +57,12 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
           }}
         >
           <Box width="100%" align="center" mb={20}>
-            <Icon size={22} color="#000" name="keyboard-arrow-left" />
-            <Text size={24} weight="bold">
+            <Icon
+              size={22}
+              color={textColors.primary}
+              name="keyboard-arrow-left"
+            />
+            <Text color="primary" size={24} weight="bold">
               {currentOption.title}
             </Text>
           </Box>
@@ -68,7 +74,7 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
           exiting={FadeOutLeft.duration(100)}
         >
           <Box mb={20}>
-            <Text size={24} weight="bold">
+            <Text color="primary" size={24} weight="bold">
               {title}
             </Text>
           </Box>

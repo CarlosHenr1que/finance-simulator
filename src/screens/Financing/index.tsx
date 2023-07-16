@@ -58,7 +58,6 @@ export default function Financing({ navigation }: FinancingProps) {
     "installments",
     "fee",
     "valuationPercentage",
-    "constantAmortization",
   ];
 
   const nextStep = () => setStep((current) => current + 1);
@@ -99,7 +98,6 @@ export default function Financing({ navigation }: FinancingProps) {
       fee,
       valuationPercentage,
       downPayment,
-      constantAmortization,
     } = values;
     const installmentsObject = await calculateFinance(
       Number(financeValue),
@@ -107,7 +105,7 @@ export default function Financing({ navigation }: FinancingProps) {
       Number(installments),
       Number(fee.replace(",", ".")),
       Number(valuationPercentage ? valuationPercentage?.replace(",", ".") : 0),
-      Number(constantAmortization ?? 0)
+      0
     );
     setLoading(false);
 
@@ -316,34 +314,6 @@ export default function Financing({ navigation }: FinancingProps) {
                           />
                         )}
                       </>
-                    )}
-                  />
-                </ReAnimated.View>
-              )}
-
-              {step === 5 && (
-                <ReAnimated.View
-                  layout={Layout}
-                  entering={FadeInRight.duration(400)}
-                  exiting={FadeOutLeft.duration(100)}
-                >
-                  <Controller
-                    control={control}
-                    name="constantAmortization"
-                    render={({ field: { onChange, value, ref } }) => (
-                      <Input
-                        ref={ref}
-                        value={value}
-                        icon={
-                          <Icon name="money-off" color="#FF3642" size={22} />
-                        }
-                        placeholder="Amortização constante (Opcional)"
-                        mt={10}
-                        keyboardType="decimal-pad"
-                        onChange={onChange}
-                        error={errors.constantAmortization?.message}
-                        onSubmitEditing={onSimulatePress}
-                      />
                     )}
                   />
                 </ReAnimated.View>

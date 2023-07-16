@@ -9,7 +9,6 @@ export interface SimulateForm {
   fee: string;
   valuationPercentage?: string;
   downPayment?: string;
-  constantAmortization?: string;
 }
 
 const validations = {
@@ -41,9 +40,6 @@ const simulationFormSchema: yup.ObjectSchema<SimulateForm> = yup.object({
     .test(nonZero.name, nonZero.message, nonZero.test)
     .required("Este campo deve ser preenchido"),
   valuationPercentage: yup
-    .string()
-    .test(nonZero.name, nonZero.message, nonZero.test),
-  constantAmortization: yup
     .string()
     .test(nonZero.name, nonZero.message, nonZero.test),
 });

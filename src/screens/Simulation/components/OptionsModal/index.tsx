@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Modal from "../../../../components/common/Modal";
 import CardButton from "../../../../components/simulation/CardButton";
 import Text from "../../../../components/common/Text";
@@ -32,6 +32,12 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
   onClose,
 }) => {
   const [selectedOption, setSelectedOption] = useState<number>(-1);
+
+  useEffect(() => {
+    if (visible === false) {
+      setSelectedOption(-1);
+    }
+  }, [visible]);
 
   const onCloseWrapper = () => {
     onClose();

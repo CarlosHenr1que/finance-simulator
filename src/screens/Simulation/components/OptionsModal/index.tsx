@@ -12,6 +12,7 @@ import ReAnimated, {
   Layout,
 } from "react-native-reanimated";
 import { useTheme } from "styled-components/native";
+import Stack from "../../../../components/common/Stack";
 
 interface Option {
   title: string;
@@ -80,15 +81,25 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
           </Box>
         </ReAnimated.View>
       )}
-      {selectedOption !== -1
-        ? options[selectedOption].content
-        : options.map((item, index) => (
+      {selectedOption !== -1 ? (
+        <ReAnimated.View
+          layout={Layout}
+          entering={FadeInRight.duration(400)}
+          exiting={FadeOutLeft.duration(100)}
+        >
+          {options[selectedOption].content}
+        </ReAnimated.View>
+      ) : (
+        <Stack spacing={10}>
+          {options.map((item, index) => (
             <CardButton
               title={item.title}
               description={item.description}
               onPress={() => setSelectedOption(index)}
             />
           ))}
+        </Stack>
+      )}
     </Modal>
   );
 };

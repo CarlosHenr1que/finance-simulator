@@ -20,6 +20,7 @@ import OptionsModal from "./components/OptionsModal";
 import { AmortizationForm as AmortizationFormValues } from "./components/AmortizationForm/form";
 import { calculateFinance } from "../../utils/financing";
 import { useFinancingSimulation } from "../../hooks/contexts/financing/simulation";
+import SimulationForm from "./components/SimulationForm";
 
 const Simulation: React.FC = () => {
   const {
@@ -64,6 +65,11 @@ const Simulation: React.FC = () => {
           visible={isOptionsModalVisible}
           title="Opções"
           options={[
+            {
+              title: "Alterar Informações",
+              description: "Altere as informações do seu financiamento",
+              content: <SimulationForm />,
+            },
             {
               title: "Amortização",
               description: "Realizar amortização no seu financiamento",

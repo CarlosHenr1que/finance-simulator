@@ -86,7 +86,9 @@ const Simulation: React.FC = () => {
                 <Text color="primary" size={24} weight="bold">
                   {getFinancingValue()}
                 </Text>
-                <Text size={14}>Valor financiado</Text>
+                <Text color="secondary" size={14}>
+                  Valor financiado
+                </Text>
               </Box>
               <Button
                 width={80}

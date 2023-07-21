@@ -93,6 +93,7 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
         <Stack spacing={10}>
           {options.map((item, index) => (
             <CardButton
+              key={String(index)}
               title={item.title}
               description={item.description}
               onPress={() => setSelectedOption(index)}

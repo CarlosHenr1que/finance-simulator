@@ -5,7 +5,7 @@ interface ContainerProps {
 }
 
 export const Container = styled.TouchableOpacity<ContainerProps>`
-  width: ${(props) => (props.width ? props.width : "100%")};
+  width: ${(props) => (props.width ? `${props.width}px` : "100%")};
   height: 45px;
   background: ${({ theme }) => theme.colors.primary};
   border-radius: ${({ theme }) => theme.metrics.baseRadius}px;

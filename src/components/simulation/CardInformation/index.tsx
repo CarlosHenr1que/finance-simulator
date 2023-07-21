@@ -64,8 +64,8 @@ export const CardInformation = ({
         </Box>
       </Box>
       <Box justify="space-between" align="center" mt={10} px={8}>
-        {items?.map((item) => (
-          <Box dir="column">
+        {items?.map((item, index) => (
+          <Box key={String(index)} dir="column">
             <Text color="primary" weight="bold" size={16}>
               {item.title}
             </Text>

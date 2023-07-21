@@ -127,7 +127,7 @@ const Input: React.FC<Props> = React.forwardRef(
               type={type}
               multiline={type === "area"}
               hasError={!!error}
-              style={{ paddingLeft: 10, outline: "none" }}
+              style={{ paddingLeft: 10 }}
               returnKeyType="done"
               onSubmitEditing={onSubmitEditing}
               keyboardType={keyboardType}

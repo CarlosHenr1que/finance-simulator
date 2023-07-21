@@ -16,7 +16,9 @@ const Stack: React.FC<StackProps> = ({ children, spacing, ...rest }) => {
   return (
     <Box dir="column" {...rest}>
       {arrayChildren.map((child, index) => (
-        <Box mb={isLastItem(index) ? 0 : spacing}>{child}</Box>
+        <Box key={String(index)} mb={isLastItem(index) ? 0 : spacing}>
+          {child}
+        </Box>
       ))}
     </Box>
   );

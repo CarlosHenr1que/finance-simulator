@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import * as S from "./styles";
 import Box from "../Box";
 import { Props as BoxProps } from "../Box";
-import { KeyboardTypeOptions } from "react-native";
+import { KeyboardTypeOptions, TouchableOpacity } from "react-native";
 import Text from "../Text";
 
 import Icon from "@expo/vector-icons/MaterialIcons";
@@ -28,6 +28,7 @@ interface Props extends BoxProps {
   onChange: (text: string) => void;
   onFocus?: (isFocused: boolean) => void;
   onSubmitEditing?: () => void;
+  onToolTipPress?: () => void;
   keyboardType?: KeyboardTypeOptions;
 }
 
@@ -42,6 +43,7 @@ const Input: React.FC<Props> = React.forwardRef(
       onChange,
       onFocus,
       onSubmitEditing,
+      onToolTipPress,
       keyboardType,
       tollTip,
       ...rest
@@ -131,7 +133,11 @@ const Input: React.FC<Props> = React.forwardRef(
               keyboardType={keyboardType}
             />
           </Box>
-          {tollTip && <Icon size={22} color="#06A5D8" name="info" />}
+          {tollTip && (
+            <TouchableOpacity onPress={onToolTipPress && onToolTipPress}>
+              <Icon size={22} color="#06A5D8" name="info" />
+            </TouchableOpacity>
+          )}
         </Box>
       </Box>
     );

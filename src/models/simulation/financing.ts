@@ -14,4 +14,5 @@ export interface Simulation {
   fee: number;
   installmentsNumber: number;
   installments: Installment[];
+  valuationPercentage?: number;
 }

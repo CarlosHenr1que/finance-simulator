@@ -118,6 +118,7 @@ export default function Financing({ navigation }: FinancingProps) {
       fee: Number(fee.replace(",", ".")),
       installmentsNumber: Number(installments),
       installments: installmentsObject,
+      valuationPercentage: Number(valuationPercentage?.replace(",", ".")),
     });
 
     navigation.navigate("Simulation");

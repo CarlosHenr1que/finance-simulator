@@ -29,8 +29,14 @@ const Simulation: React.FC = () => {
   } = useFinancingSimulation();
   const [isOptionsModalVisible, setIsOptionsModalVisible] = useState(false);
 
-  const { financing, fee, installments, installmentsNumber, downPayment } =
-    simulation;
+  const {
+    financing,
+    fee,
+    installments,
+    installmentsNumber,
+    downPayment,
+    valuationPercentage,
+  } = simulation;
 
   const getFinancingValue = () => {
     if (downPayment) return formatCurrency(financing - downPayment);
@@ -45,17 +51,19 @@ const Simulation: React.FC = () => {
       downPayment ?? 0,
       installmentsNumber,
       fee,
-      5,
+      valuationPercentage,
       Number(values.constantAmortization)
     );
 
     addSimulation({
-      financing,
-      downPayment: Number(downPayment),
-      fee,
-      installmentsNumber,
+      ...simulation,
       installments: installmentsObject,
+      constantAmortization: Number(values.constantAmortization),
     });
+  };
+
+  const closeOptionModal = () => {
+    setIsOptionsModalVisible(false);
   };
 
   return (
@@ -76,7 +84,7 @@ const Simulation: React.FC = () => {
               content: <AmortizationForm onSuccess={handleAmortization} />,
             },
           ]}
-          onClose={() => setIsOptionsModalVisible(false)}
+          onClose={closeOptionModal}
         />
 
         <Box dir="column" pt={60}>

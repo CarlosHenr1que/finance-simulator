@@ -15,4 +15,5 @@ export interface Simulation {
   installmentsNumber: number;
   installments: Installment[];
   valuationPercentage?: number;
+  constantAmortization?: number;
 }

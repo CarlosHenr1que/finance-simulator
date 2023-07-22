@@ -12,7 +12,7 @@ import {
   SimulateForm,
   useSimulateFinancingForm,
 } from "../../../Financing/form";
-import { ScrollView } from "react-native";
+import { Alert, ScrollView } from "react-native";
 import { useFinancingSimulation } from "../../../../hooks/contexts/financing/simulation";
 import { calculateFinance } from "../../../../utils/financing";
 
@@ -48,14 +48,13 @@ const SimulationForm: React.FC = ({}) => {
   } = useSimulateFinancingForm(onSuccess);
 
   const onSavePress = async (values: SimulateForm) => {
-    const { financing, downPayment, installmentsNumber, fee } = data.simulation;
     const installmentsObject = await calculateFinance(
-      financing,
-      downPayment ?? 0,
-      installmentsNumber,
-      fee,
-      5,
-      0
+      Number(values.financeValue),
+      Number(values.downPayment),
+      Number(values.installments),
+      Number(values.fee),
+      Number(values.valuationPercentage),
+      data.simulation.constantAmortization
     );
 
     addSimulation({
@@ -68,6 +67,8 @@ const SimulationForm: React.FC = ({}) => {
         values.valuationPercentage?.replace(",", ".")
       ),
     });
+
+    Alert.alert("Dados alterados com sucesso");
   };
 
   function onSuccess(values: SimulateForm) {
@@ -143,7 +144,7 @@ const SimulationForm: React.FC = ({}) => {
                 keyboardType="number-pad"
                 error={errors.installments?.message}
                 tollTip
-                onTollTipPress={() => toggle("installments")}
+                onToolTipPress={() => toggle("installments")}
               />
               {tips["installments"] && (
                 <ToolTip
@@ -172,7 +173,7 @@ const SimulationForm: React.FC = ({}) => {
                 onChange={onChange}
                 error={errors.fee?.message}
                 tollTip
-                onTollTipPress={() => toggle("fee")}
+                onToolTipPress={() => toggle("fee")}
               />
               {tips["fee"] && (
                 <ToolTip
@@ -201,7 +202,7 @@ const SimulationForm: React.FC = ({}) => {
                 onChange={onChange}
                 error={errors.valuationPercentage?.message}
                 tollTip
-                onTollTipPress={() => toggle("valuation")}
+                onToolTipPress={() => toggle("valuation")}
               />
               {tips["valuation"] && (
                 <ToolTip

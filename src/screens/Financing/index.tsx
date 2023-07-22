@@ -130,7 +130,6 @@ export default function Financing({ navigation }: FinancingProps) {
 
   return (
     <>
-      <StatusBar style="auto" />
       <Container>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Box flex={1} justify="flex-end" dir="column" px={16} pt={60}>

@@ -125,7 +125,9 @@ export default function Financing({ navigation }: FinancingProps) {
   }
 
   useEffect(() => {
-    setFocus("financeValue");
+    setTimeout(() => {
+      setFocus("financeValue");
+    }, 500);
   }, []);
 
   return (

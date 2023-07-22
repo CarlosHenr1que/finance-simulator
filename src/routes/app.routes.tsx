@@ -3,8 +3,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Financing from "../screens/Financing";
 import Simulation from "../screens/Simulation";
+import Main from "../screens/Main";
 
 export type RootStackParamList = {
+  Main: undefined;
   Financing: undefined;
   Simulation: undefined;
 };
@@ -22,6 +24,7 @@ const AppRoutes: React.FC = () => {
           headerShown: false,
         }}
       >
+        <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Financing" component={Financing} />
         <Stack.Screen name="Simulation" component={Simulation} />
       </Stack.Group>

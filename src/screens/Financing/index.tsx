@@ -68,7 +68,6 @@ export default function Financing({ navigation }: FinancingProps) {
   const previousStep = () => {
     setStep((current) => {
       const next = current - 1;
-      console.log(steps[next]);
       setTimeout(() => {
         setFocus(steps[next]);
       }, 500);
@@ -87,7 +86,6 @@ export default function Financing({ navigation }: FinancingProps) {
       nextStep();
       steps[step + 1] && setFocus(steps[step + 1]);
     } else {
-      console.log("aa");
       setTimeout(() => {
         setFocus(steps[step]);
       }, 500);

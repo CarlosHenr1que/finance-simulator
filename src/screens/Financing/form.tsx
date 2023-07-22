@@ -30,7 +30,17 @@ const simulationFormSchema: yup.ObjectSchema<SimulateForm> = yup.object({
     .string()
     .test(nonZero.name, nonZero.message, nonZero.test)
     .required("Este campo deve ser preenchido"),
-  downPayment: yup.string().test(nonZero.name, nonZero.message, nonZero.test),
+  downPayment: yup
+    .string()
+    .test(nonZero.name, nonZero.message, nonZero.test)
+    .test(
+      "non-greater-than-financing",
+      "Não deve ser maior que o financiamento",
+      (value, ctx) => {
+        const financeValue = ctx.from?.[0].value.financeValue;
+        return Number(financeValue) > Number(value);
+      }
+    ),
   installments: yup
     .string()
     .test(nonZero.name, nonZero.message, nonZero.test)
@@ -39,9 +49,7 @@ const simulationFormSchema: yup.ObjectSchema<SimulateForm> = yup.object({
     .string()
     .test(nonZero.name, nonZero.message, nonZero.test)
     .required("Este campo deve ser preenchido"),
-  valuationPercentage: yup
-    .string()
-    .test(nonZero.name, nonZero.message, nonZero.test),
+  valuationPercentage: yup.string(),
 });
 
 export const useSimulateFinancingForm = (

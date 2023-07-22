@@ -78,7 +78,7 @@ const Input: React.FC<Props> = React.forwardRef(
 
     return (
       <Box width="100%" dir="column" {...rest}>
-        <Box height={14} justify="space-between">
+        <Box width="100%" height={14} justify="space-between">
           {value && (
             <ReAnimated.View
               layout={Layout}
@@ -114,30 +114,32 @@ const Input: React.FC<Props> = React.forwardRef(
           justify="space-between"
           align="center"
         >
-          <Box align="center">
-            {icon && icon}
-            <S.TextInput
-              ref={ref}
-              value={value}
-              placeholder={placeholder}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              onChangeText={onChange}
-              isFocused={isFocused}
-              type={type}
-              multiline={type === "area"}
-              hasError={!!error}
-              style={{ paddingLeft: 10 }}
-              returnKeyType="done"
-              onSubmitEditing={onSubmitEditing}
-              keyboardType={keyboardType}
-            />
+          <Box width="100%" align="center" justify="space-between">
+            <>
+              {icon && icon}
+              <S.TextInput
+                ref={ref}
+                value={value}
+                placeholder={placeholder}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                onChangeText={onChange}
+                isFocused={isFocused}
+                type={type}
+                multiline={type === "area"}
+                hasError={!!error}
+                style={{ paddingLeft: 10 }}
+                returnKeyType="done"
+                onSubmitEditing={onSubmitEditing}
+                keyboardType={keyboardType}
+              />
+            </>
+            {tollTip && (
+              <TouchableOpacity onPress={onToolTipPress && onToolTipPress}>
+                <Icon size={22} color="#06A5D8" name="info" />
+              </TouchableOpacity>
+            )}
           </Box>
-          {tollTip && (
-            <TouchableOpacity onPress={onToolTipPress && onToolTipPress}>
-              <Icon size={22} color="#06A5D8" name="info" />
-            </TouchableOpacity>
-          )}
         </Box>
       </Box>
     );

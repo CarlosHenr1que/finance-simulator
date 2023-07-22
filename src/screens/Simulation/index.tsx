@@ -7,6 +7,7 @@ import Button from "../../components/common/Button";
 import { CardInformation } from "../../components/simulation/CardInformation";
 
 import Icon from "@expo/vector-icons/MaterialIcons";
+import MCIcon from "@expo/vector-icons/MaterialCommunityIcons";
 import Stack from "../../components/common/Stack";
 import { ScrollView } from "react-native";
 import CardInstallment from "../../components/simulation/CardInstallment";
@@ -107,14 +108,14 @@ const Simulation: React.FC = () => {
 
             <Stack spacing={10} mt={20}>
               <CardInformation
-                icon={<Icon name="money-off" color="#fff" size={22} />}
+                icon={<Icon name="payments" color="#fff" size={22} />}
                 title={String(installmentsNumber)}
                 description="Prestações"
                 iconBackground="#000"
                 items={getInstallmentItems(installments)}
               />
               <CardInformation
-                icon={<Icon name="monetization-on" color="#fff" size={22} />}
+                icon={<MCIcon name="percent" color="#fff" size={22} />}
                 title={String(fee).replace(".", ",") + "%"}
                 description="Taxa de juros anual"
                 iconBackground="#FF3642"
@@ -135,7 +136,7 @@ const Simulation: React.FC = () => {
               />
               {downPayment && (
                 <CardInformation
-                  icon={<Icon name="monetization-on" color="#fff" size={22} />}
+                  icon={<Icon name="payments" color="#fff" size={22} />}
                   title={formatCurrency(downPayment) as string}
                   description="Entrada"
                   iconBackground="#3DE8BF"
@@ -143,7 +144,7 @@ const Simulation: React.FC = () => {
               )}
               {!!installments?.at(-1)?.valuation && (
                 <CardInformation
-                  icon={<Icon name="monetization-on" color="#fff" size={22} />}
+                  icon={<Icon name="trending-up" color="#fff" size={22} />}
                   title={
                     formatCurrency(installments?.at(-1)?.valuation) as string
                   }

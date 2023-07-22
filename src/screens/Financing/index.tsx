@@ -10,7 +10,8 @@ import Container from "../../../src/components/common/Container";
 import Input from "../../../src/components/common/Input";
 
 import Icon from "@expo/vector-icons/MaterialIcons";
-import { StatusBar } from "expo-status-bar";
+import MCIcon from "@expo/vector-icons/MaterialCommunityIcons";
+
 import { useEffect, useState } from "react";
 import Button from "../../components/common/Button";
 import { RootStackParamList } from "../../routes/app.routes";
@@ -224,9 +225,7 @@ export default function Financing({ navigation }: FinancingProps) {
                         <Input
                           ref={ref}
                           value={value}
-                          icon={
-                            <Icon name="money-off" color="#000" size={22} />
-                          }
+                          icon={<Icon name="payments" color="#000" size={22} />}
                           placeholder="Prestações"
                           mt={10}
                           onChange={onChange}
@@ -261,7 +260,7 @@ export default function Financing({ navigation }: FinancingProps) {
                           ref={ref}
                           value={value}
                           icon={
-                            <Icon name="money-off" color="#FF3642" size={22} />
+                            <MCIcon name="percent" color="#FF3642" size={22} />
                           }
                           placeholder="Juros (Anual)"
                           mt={10}
@@ -300,7 +299,11 @@ export default function Financing({ navigation }: FinancingProps) {
                           ref={ref}
                           value={value}
                           icon={
-                            <Icon name="money-off" color="#FF3642" size={22} />
+                            <Icon
+                              name="trending-up"
+                              color="#FF3642"
+                              size={22}
+                            />
                           }
                           placeholder="Percentual de valorização (Taxa anual)"
                           mt={10}

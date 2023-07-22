@@ -17,6 +17,7 @@ import {
   AmortizationForm as AmortizationFormProp,
   useAmortizationForm,
 } from "./form";
+import { useFinancingSimulation } from "../../../../hooks/contexts/financing/simulation";
 
 interface AmortizationModalProps {
   onSuccess: (values: AmortizationFormProp) => void;
@@ -28,10 +29,20 @@ const AmortizationForm: React.FC<AmortizationModalProps> = ({ onSuccess }) => {
     onSubmit,
     formState: { errors },
     setFocus,
+    setValue,
   } = useAmortizationForm(onSuccess);
+
+  const { data } = useFinancingSimulation();
 
   useEffect(() => {
     setFocus("constantAmortization");
+  }, []);
+
+  useEffect(() => {
+    setValue(
+      "constantAmortization",
+      String(data.simulation.constantAmortization ?? "")
+    );
   }, []);
 
   return (

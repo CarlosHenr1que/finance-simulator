@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../utils/currency";
+import { formatCurrency } from "@utils/currency";
 
 const formatMonthToDuration = (value: number) => {
   const [years, months] = String(value / 12).split(".");

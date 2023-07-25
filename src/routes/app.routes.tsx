@@ -1,13 +1,16 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Financing from "../screens/Financing";
-import Simulation from "../screens/Simulation";
+import {
+  FinancingRouter,
+  FinancingStackParamList,
+} from "../screens/Financing/router";
 import Main from "../screens/Main";
+import { NavigatorScreenParams } from "@react-navigation/native";
 
 export type RootStackParamList = {
   Main: undefined;
-  Financing: undefined;
+  Financing: NavigatorScreenParams<FinancingStackParamList>;
   Simulation: undefined;
 };
 
@@ -25,8 +28,7 @@ const AppRoutes: React.FC = () => {
         }}
       >
         <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="Financing" component={Financing} />
-        <Stack.Screen name="Simulation" component={Simulation} />
+        <Stack.Screen name="Financing" component={FinancingRouter} />
       </Stack.Group>
     </Stack.Navigator>
   );

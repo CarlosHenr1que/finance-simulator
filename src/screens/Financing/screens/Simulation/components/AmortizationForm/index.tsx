@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 
 import { Controller } from "react-hook-form";
-import Input from "../../../../components/common/Input";
+import Input from "@components/common/Input";
 
 import Icon from "@expo/vector-icons/MaterialIcons";
-import Box from "../../../../components/common/Box";
-import Button from "../../../../components/common/Button";
-import ToolTip from "../../../../components/common/Input/ToolTip";
+import Box from "@components/common/Box";
+import Button from "@components/common/Button";
+import ToolTip from "@components/common/Input/ToolTip";
 
 import ReAnimated, {
   FadeInRight,
@@ -17,7 +17,7 @@ import {
   AmortizationForm as AmortizationFormProp,
   useAmortizationForm,
 } from "./form";
-import { useFinancingSimulation } from "../../../../hooks/contexts/financing/simulation";
+import { useFinancingSimulation } from "@hooks/contexts/financing/simulation";
 
 interface AmortizationModalProps {
   onSuccess: (values: AmortizationFormProp) => void;

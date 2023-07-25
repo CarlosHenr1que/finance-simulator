@@ -3,20 +3,19 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
-import Box from "../../../src/components/common/Box";
-import Text from "../../../src/components/common/Text";
+import Box from "@components/common/Box";
+import Text from "@components/common/Text";
 
-import Container from "../../../src/components/common/Container";
-import Input from "../../../src/components/common/Input";
+import Container from "@components/common/Container";
+import Input from "@components/common/Input";
 
 import Icon from "@expo/vector-icons/MaterialIcons";
 import MCIcon from "@expo/vector-icons/MaterialCommunityIcons";
 
 import { useEffect, useState } from "react";
-import Button from "../../components/common/Button";
-import { RootStackParamList } from "../../routes/app.routes";
+import Button from "@components/common/Button";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { calculateFinance } from "../../utils/financing";
+import { calculateFinance } from "@utils/financing";
 import { Controller } from "react-hook-form";
 
 import { SimulateForm, useSimulateFinancingForm } from "./form";
@@ -27,16 +26,17 @@ import ReAnimated, {
   FadeOutLeft,
   Layout,
 } from "react-native-reanimated";
-import ToolTip from "../../components/common/Input/ToolTip";
-import { useFinancingSimulation } from "../../hooks/contexts/financing/simulation";
+import ToolTip from "@components/common/Input/ToolTip";
+import { useFinancingSimulation } from "@hooks/contexts/financing/simulation";
+import { FinancingStackParamList } from "../../router";
 
 type FinancingNavigationProps = NativeStackScreenProps<
-  RootStackParamList,
-  "Financing"
+  FinancingStackParamList,
+  "CreateSimulation"
 >;
 interface FinancingProps extends FinancingNavigationProps {}
 
-export default function Financing({ navigation }: FinancingProps) {
+export default function CreateSimulation({ navigation }: FinancingProps) {
   const {
     control,
     onSubmit,

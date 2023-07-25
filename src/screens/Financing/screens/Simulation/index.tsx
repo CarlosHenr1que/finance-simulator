@@ -1,26 +1,26 @@
 import React, { useState } from "react";
 
-import Container from "../../components/common/Container";
-import Text from "../../components/common/Text";
-import Box from "../../components/common/Box";
-import Button from "../../components/common/Button";
-import { CardInformation } from "../../components/simulation/CardInformation";
+import Container from "@components/common/Container";
+import Text from "@components/common/Text";
+import Box from "@components/common/Box";
+import Button from "@components/common/Button";
+import { CardInformation } from "@components/simulation/CardInformation";
 
 import Icon from "@expo/vector-icons/MaterialIcons";
 import MCIcon from "@expo/vector-icons/MaterialCommunityIcons";
-import Stack from "../../components/common/Stack";
+import Stack from "@components/common/Stack";
 import { ScrollView } from "react-native";
-import CardInstallment from "../../components/simulation/CardInstallment";
+import CardInstallment from "@components/simulation/CardInstallment";
 
-import { formatCurrency } from "../../utils/currency";
+import { formatCurrency } from "@utils/currency";
 
 import ReAnimated, { SlideInDown, Layout } from "react-native-reanimated";
 import { getInstallmentItems } from "./utils";
 import AmortizationForm from "./components/AmortizationForm";
 import OptionsModal from "./components/OptionsModal";
 import { AmortizationForm as AmortizationFormValues } from "./components/AmortizationForm/form";
-import { calculateFinance } from "../../utils/financing";
-import { useFinancingSimulation } from "../../hooks/contexts/financing/simulation";
+import { calculateFinance } from "@utils/financing";
+import { useFinancingSimulation } from "@hooks/contexts/financing/simulation";
 import SimulationForm from "./components/SimulationForm";
 
 const Simulation: React.FC = () => {

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 
 import { Controller } from "react-hook-form";
-import Input from "../../../../components/common/Input";
+import Input from "@components/common/Input";
 
 import Icon from "@expo/vector-icons/MaterialIcons";
-import Box from "../../../../components/common/Box";
-import Button from "../../../../components/common/Button";
-import ToolTip from "../../../../components/common/Input/ToolTip";
+import Box from "@components/common/Box";
+import Button from "@components/common/Button";
+import ToolTip from "@components/common/Input/ToolTip";
 
 import {
   SimulateForm,
   useSimulateFinancingForm,
-} from "../../../Financing/form";
+} from "../../../CreateSimulation/form";
 import { Alert, ScrollView } from "react-native";
-import { useFinancingSimulation } from "../../../../hooks/contexts/financing/simulation";
-import { calculateFinance } from "../../../../utils/financing";
+import { useFinancingSimulation } from "@hooks/contexts/financing/simulation";
+import { calculateFinance } from "@utils/financing";
 
 function useToolTip() {
   const [tips, setTollTips] = useState<{ [key: string]: boolean }>({} as any);

@@ -1,10 +1,10 @@
 import React from "react";
 
-import Container from "../../components/common/Container";
-import Box from "../../components/common/Box";
-import Text from "../../components/common/Text";
-import Stack from "../../components/common/Stack";
-import CardButton from "../../components/simulation/CardButton";
+import Container from "@components/common/Container";
+import Box from "@components/common/Box";
+import Text from "@components/common/Text";
+import Stack from "@components/common/Stack";
+import CardButton from "@components/simulation/CardButton";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../routes/app.routes";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -14,7 +14,9 @@ const Main: React.FC = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const onFinancingPress = () => {
-    navigation.navigate("Financing");
+    navigation.navigate("Financing", {
+      screen: "CreateSimulation",
+    });
   };
 
   return (

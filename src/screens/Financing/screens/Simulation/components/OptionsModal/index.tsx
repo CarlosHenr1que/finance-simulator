@@ -1,8 +1,8 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import Modal from "../../../../components/common/Modal";
-import CardButton from "../../../../components/simulation/CardButton";
-import Text from "../../../../components/common/Text";
-import Box from "../../../../components/common/Box";
+import Modal from "@components/common/Modal";
+import CardButton from "@components/simulation/CardButton";
+import Text from "@components/common/Text";
+import Box from "@components/common/Box";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import { TouchableOpacity } from "react-native";
 
@@ -12,7 +12,7 @@ import ReAnimated, {
   Layout,
 } from "react-native-reanimated";
 import { useTheme } from "styled-components/native";
-import Stack from "../../../../components/common/Stack";
+import Stack from "@components/common/Stack";
 
 interface Option {
   title: string;

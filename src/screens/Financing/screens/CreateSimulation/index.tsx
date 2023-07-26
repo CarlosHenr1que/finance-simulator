@@ -27,7 +27,7 @@ import ReAnimated, {
   Layout,
 } from "react-native-reanimated";
 import ToolTip from "@components/common/Input/ToolTip";
-import { useFinancingSimulation } from "@hooks/contexts/financing/simulation";
+import { useFinancingSimulation } from "@contexts/financing/simulation";
 import { FinancingStackParamList } from "../../router";
 
 type FinancingNavigationProps = NativeStackScreenProps<

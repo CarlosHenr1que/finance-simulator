@@ -13,7 +13,7 @@ import {
   useSimulateFinancingForm,
 } from "../../../CreateSimulation/form";
 import { Alert, ScrollView } from "react-native";
-import { useFinancingSimulation } from "@hooks/contexts/financing/simulation";
+import { useFinancingSimulation } from "@contexts/financing/simulation";
 import { calculateFinance } from "@utils/financing";
 
 function useToolTip() {

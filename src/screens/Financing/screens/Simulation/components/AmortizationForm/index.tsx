@@ -17,7 +17,7 @@ import {
   AmortizationForm as AmortizationFormProp,
   useAmortizationForm,
 } from "./form";
-import { useFinancingSimulation } from "@hooks/contexts/financing/simulation";
+import { useFinancingSimulation } from "@contexts/financing/simulation";
 
 interface AmortizationModalProps {
   onSuccess: (values: AmortizationFormProp) => void;

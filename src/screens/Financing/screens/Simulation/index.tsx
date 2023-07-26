@@ -20,7 +20,7 @@ import AmortizationForm from "./components/AmortizationForm";
 import OptionsModal from "./components/OptionsModal";
 import { AmortizationForm as AmortizationFormValues } from "./components/AmortizationForm/form";
 import { calculateFinance } from "@utils/financing";
-import { useFinancingSimulation } from "@hooks/contexts/financing/simulation";
+import { useFinancingSimulation } from "@contexts/financing/simulation";
 import SimulationForm from "./components/SimulationForm";
 
 const Simulation: React.FC = () => {

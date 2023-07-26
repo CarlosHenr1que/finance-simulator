@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { Simulation } from "../../../models/simulation/financing";
+import { Simulation } from "../../models/simulation/financing";
 
 interface FinancingSimulationState {
   simulation: Simulation;

@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import { FinancingSimulationProvider } from "./financing/simulation";
 
 interface Props {
-  children: any;
+  children: ReactNode;
 }
 
 const AppProvider: React.FC<Props> = ({ children }) => (

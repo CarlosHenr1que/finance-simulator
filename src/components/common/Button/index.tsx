@@ -3,11 +3,14 @@ import Text from "../Text";
 
 import * as S from "./styles";
 import { ActivityIndicator } from "react-native";
+import { useTheme } from "styled-components";
 
 interface Props {
   text: string;
   isLoading?: boolean;
   width?: number;
+  height?: number;
+  variant?: "primary" | "outline";
   onPress: () => void;
 }
 
@@ -16,14 +19,26 @@ const Button: React.FC<Props> = ({
   isLoading = false,
   onPress,
   width,
-  ...rest
+  height,
+  variant,
 }) => {
+  const { colors, textColors } = useTheme();
+
   return (
-    <S.Container width={width} onPress={onPress}>
+    <S.Container
+      width={width}
+      height={height}
+      variant={variant}
+      onPress={onPress}
+    >
       {isLoading ? (
         <ActivityIndicator size="small" color="#fff" />
       ) : (
-        <Text size={16} weight="bold" color="white">
+        <Text
+          size={16}
+          weight="bold"
+          color={variant === "outline" ? colors.primary : textColors.white}
+        >
           {text}
         </Text>
       )}

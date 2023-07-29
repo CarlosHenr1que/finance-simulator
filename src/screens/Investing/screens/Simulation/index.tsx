@@ -1,4 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+
+import ReAnimated, {
+  SlideInDown,
+  Layout,
+  SlideOutDown,
+} from "react-native-reanimated";
+
 import Box from "@components/common/Box";
 import Container from "@components/common/Container";
 import Text from "@components/common/Text";
@@ -11,30 +18,62 @@ import MCIcon from "@expo/vector-icons/MaterialCommunityIcons";
 import { useInvestingSimulation } from "@screens/Investing/contexts/simulation";
 import { formatCurrency } from "@utils/currency";
 
-import ReAnimated, { SlideInDown, Layout } from "react-native-reanimated";
 import CardInstallment from "@components/simulation/CardInstallment";
-import { ScrollView } from "react-native";
+import Button from "@components/common/Button";
+import { FlatList } from "react-native";
+
+const options = [
+  { title: "Informações" },
+  { title: "Parcelas" },
+  { title: "Gráfico" },
+];
 
 const Simulation: React.FC = () => {
   const {
     data: { simulation },
   } = useInvestingSimulation();
+
+  const [selectedOption, setSelectedOption] = useState(options[0]);
+
+  const onSelectedOption = (option: (typeof options)[0]) => {
+    setSelectedOption(option);
+  };
+
   return (
     <Container>
-      <ScrollView>
-        <Box dir="column" pt={60}>
-          <Box dir="column" px={16}>
-            <Box width="100%" justify="space-between">
-              <Box dir="column">
-                <Text color="primary" size={24} weight="bold">
-                  {formatCurrency(simulation.balance)}
-                </Text>
-                <Text color="secondary" size={14}>
-                  Saldo investimento
-                </Text>
+      <Box dir="column" pt={60}>
+        <Box dir="column" px={16}>
+          <Text color="primary" size={24} weight="bold">
+            {formatCurrency(simulation.balance)}
+          </Text>
+          <Text color="secondary" size={14}>
+            Saldo investimento
+          </Text>
+        </Box>
+        <Box mt={20}>
+          <FlatList
+            horizontal
+            ItemSeparatorComponent={() => <Box width={10} />}
+            showsHorizontalScrollIndicator={false}
+            data={options}
+            renderItem={({ item, index }) => (
+              <Box ml={index === 0 ? 16 : 0}>
+                <Button
+                  text={item.title}
+                  width={120}
+                  onPress={() => {
+                    onSelectedOption(item);
+                  }}
+                  variant={
+                    selectedOption.title === item.title ? "primary" : "outline"
+                  }
+                />
               </Box>
-            </Box>
-
+            )}
+          />
+        </Box>
+        <Box mt={20} px={16}>
+          {selectedOption.title === "Informações" && (
             <Stack spacing={10} mt={20}>
               <CardInformation
                 icon={<MCIcon name="percent" color="#fff" size={22} />}
@@ -63,32 +102,33 @@ const Simulation: React.FC = () => {
                 />
               )}
             </Stack>
-          </Box>
-          <ReAnimated.View
-            style={{ width: "100%" }}
-            layout={Layout}
-            entering={SlideInDown.duration(1000)}
-          >
-            <Stack
-              mt={20}
-              spacing={10}
-              px={16}
-              pt={20}
-              background="tertiary"
-              radius={8}
+          )}
+
+          {selectedOption.title === "Parcelas" && (
+            <ReAnimated.View
+              style={{ width: "100%" }}
+              layout={Layout}
+              entering={SlideInDown.duration(1000)}
+              exiting={SlideOutDown.duration(1000)}
             >
-              {simulation.earnings.map((item, index: number) => (
-                <CardInstallment
-                  key={String(index)}
-                  order={`${String(index + 1)}º`}
-                  price={`${formatCurrency(item.currentBalance)}`}
-                  debit={`${formatCurrency(item.profit)}`}
-                />
-              ))}
-            </Stack>
-          </ReAnimated.View>
+              <FlatList
+                data={simulation.earnings}
+                ItemSeparatorComponent={() => <Box height={10} />}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingBottom: 180 }}
+                renderItem={({ item, index }) => (
+                  <CardInstallment
+                    key={String(index)}
+                    order={`${String(index + 1)}º`}
+                    price={`${formatCurrency(item.currentBalance)}`}
+                    debit={`${formatCurrency(item.profit)}`}
+                  />
+                )}
+              />
+            </ReAnimated.View>
+          )}
         </Box>
-      </ScrollView>
+      </Box>
     </Container>
   );
 };

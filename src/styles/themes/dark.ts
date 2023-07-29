@@ -10,6 +10,8 @@ export default {
     primary: "#1D0C82",
     secondary: "#0F0F0F",
     tertiary: "#0F0F0F",
+
+    error: "#D30000",
   },
 
   textColors: {

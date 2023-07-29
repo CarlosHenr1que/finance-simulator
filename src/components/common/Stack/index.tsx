@@ -13,10 +13,30 @@ const Stack: React.FC<StackProps> = ({ children, spacing, ...rest }) => {
 
   const isLastItem = (index: number) => arrayChildren.length === index + 1;
 
+  const addVerticalSpacing = (index: number) => {
+    if (isLastItem(index)) return 0;
+
+    if (rest.dir !== "row") {
+      return spacing;
+    }
+  };
+
+  const addHorizontalSpacing = (index: number) => {
+    if (isLastItem(index)) return 0;
+
+    if (rest.dir == "row") {
+      return spacing;
+    }
+  };
+
   return (
     <Box dir="column" {...rest}>
       {arrayChildren.map((child, index) => (
-        <Box key={String(index)} mb={isLastItem(index) ? 0 : spacing}>
+        <Box
+          key={String(index)}
+          mb={addVerticalSpacing(index)}
+          mr={addHorizontalSpacing(index)}
+        >
           {child}
         </Box>
       ))}

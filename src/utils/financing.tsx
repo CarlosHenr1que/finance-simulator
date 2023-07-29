@@ -1,4 +1,4 @@
-const transformAnnuallyFeeToMonthly = (fee: number) =>
+export const transformAnnuallyFeeToMonthly = (fee: number) =>
   ((1 + fee / 100) ** (1 / 12) - 1) * 100;
 
 const calculateAmortization = (

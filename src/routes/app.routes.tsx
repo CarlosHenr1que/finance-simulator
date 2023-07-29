@@ -1,17 +1,22 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigatorScreenParams } from "@react-navigation/native";
 
 import {
   FinancingRouter,
   FinancingStackParamList,
 } from "../screens/Financing/router";
+import {
+  InvestingRouter,
+  InvestingStackParamList,
+} from "@screens/Investing/router";
+
 import Main from "../screens/Main";
-import { NavigatorScreenParams } from "@react-navigation/native";
 
 export type RootStackParamList = {
   Main: undefined;
   Financing: NavigatorScreenParams<FinancingStackParamList>;
-  Simulation: undefined;
+  Investing: NavigatorScreenParams<InvestingStackParamList>;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -29,6 +34,7 @@ const AppRoutes: React.FC = () => {
       >
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Financing" component={FinancingRouter} />
+        <Stack.Screen name="Investing" component={InvestingRouter} />
       </Stack.Group>
     </Stack.Navigator>
   );

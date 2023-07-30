@@ -1,8 +1,9 @@
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Appearance } from "react-native";
 
 import { ThemeProvider } from "styled-components/native";
 
-import theme from "./src/styles/themes/default";
+import light from "./src/styles/themes/light";
+import dark from "./src/styles/themes/dark";
 
 import {
   useFonts,
@@ -12,8 +13,12 @@ import {
 
 import Routes from "./src/routes";
 import AppProvider from "./src/contexts";
+import { useState } from "react";
 
 export default function App() {
+  const deviceTheme = Appearance.getColorScheme();
+  const [theme, _] = useState(deviceTheme);
+
   let [fontsLoaded] = useFonts({
     Nunito_400Regular,
     Nunito_700Bold,
@@ -22,7 +27,7 @@ export default function App() {
   if (!fontsLoaded) return <ActivityIndicator size={"small"} />;
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme === "light" ? light : dark}>
       <AppProvider>
         <Routes />
       </AppProvider>

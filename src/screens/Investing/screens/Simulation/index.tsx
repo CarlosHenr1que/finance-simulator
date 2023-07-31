@@ -4,6 +4,8 @@ import ReAnimated, {
   SlideInDown,
   Layout,
   SlideOutDown,
+  FadeInLeft,
+  FadeOutLeft,
 } from "react-native-reanimated";
 
 import Box from "@components/common/Box";
@@ -21,6 +23,8 @@ import { formatCurrency } from "@utils/currency";
 import CardInstallment from "@components/simulation/CardInstallment";
 import Button from "@components/common/Button";
 import { FlatList } from "react-native";
+import { VictoryChart, VictoryTheme, VictoryBar } from "victory-native";
+import { useTheme } from "styled-components";
 
 const options = [
   { title: "Informações" },
@@ -29,19 +33,20 @@ const options = [
 ];
 
 const Simulation: React.FC = () => {
+  const { colors } = useTheme();
   const {
     data: { simulation },
   } = useInvestingSimulation();
 
   const [selectedOption, setSelectedOption] = useState(options[0]);
-
+  const chartData = simulation.earnings.map((item) => item.currentBalance);
   const onSelectedOption = (option: (typeof options)[0]) => {
     setSelectedOption(option);
   };
 
   return (
     <Container>
-      <Box dir="column" pt={60}>
+      <Box flex={1} dir="column" pt={60}>
         <Box dir="column" px={16}>
           <Text color="primary" size={24} weight="bold">
             {formatCurrency(simulation.balance)}
@@ -72,9 +77,9 @@ const Simulation: React.FC = () => {
             )}
           />
         </Box>
-        <Box mt={20} px={16}>
+        <Box flex={1} mt={20} px={16} py={20}>
           {selectedOption.title === "Informações" && (
-            <Stack spacing={10} mt={20}>
+            <Stack spacing={10}>
               <CardInformation
                 icon={<MCIcon name="percent" color="#fff" size={22} />}
                 title={String(simulation.fee + "%")}
@@ -125,6 +130,23 @@ const Simulation: React.FC = () => {
                   />
                 )}
               />
+            </ReAnimated.View>
+          )}
+
+          {selectedOption.title === "Gráfico" && (
+            <ReAnimated.View
+              layout={Layout}
+              entering={FadeInLeft.duration(1000)}
+              exiting={FadeOutLeft.duration(100)}
+            >
+              <VictoryChart theme={VictoryTheme.material}>
+                <VictoryBar
+                  style={{ data: { fill: colors.primary } }}
+                  data={chartData}
+                  x="month"
+                  y="balance"
+                />
+              </VictoryChart>
             </ReAnimated.View>
           )}
         </Box>

@@ -114,7 +114,7 @@ export default function CreateSimulation({
     });
 
     setLoading(false);
-    navigation.navigate("Simulation");
+    navigation.replace("Simulation");
   }
 
   useEffect(() => {

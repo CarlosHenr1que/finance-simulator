@@ -4,12 +4,11 @@ import Text from "../../common/Text";
 import Box from "../../common/Box";
 
 interface CardInstallmentProps {
-  order: string;
-  price: string;
-  debit: string;
+  titles: string[];
+  contents: string[];
 }
 const CardInstallment: React.FC<CardInstallmentProps> = memo(
-  ({ order, price, debit }) => {
+  ({ titles, contents }) => {
     return (
       <Box
         dir="column"
@@ -20,26 +19,18 @@ const CardInstallment: React.FC<CardInstallmentProps> = memo(
         radius={8}
       >
         <Box width="100%" justify="space-between">
-          <Text size={14} color="secondary">
-            Parcela
-          </Text>
-          <Text size={14} color="secondary">
-            Valor
-          </Text>
-          <Text size={14} color="secondary">
-            Saldo devedor
-          </Text>
+          {titles.map((title) => (
+            <Text key={title} size={14} color="secondary">
+              {title}
+            </Text>
+          ))}
         </Box>
         <Box mt={8} width="100%" justify="space-between">
-          <Text color="primary" size={14} weight="bold">
-            {order}
-          </Text>
-          <Text color="primary" size={14} weight="bold">
-            {price}
-          </Text>
-          <Text color="primary" size={14} weight="bold">
-            {debit}
-          </Text>
+          {contents.map((content) => (
+            <Text key={content} color="primary" size={14} weight="bold">
+              {content}
+            </Text>
+          ))}
         </Box>
       </Box>
     );

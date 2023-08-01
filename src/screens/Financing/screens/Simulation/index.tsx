@@ -170,9 +170,12 @@ const Simulation: React.FC = () => {
               {installments.map((item: any, index: number) => (
                 <CardInstallment
                   key={String(index)}
-                  order={`${String(index + 1)}º`}
-                  price={`${formatCurrency(item.installment)}`}
-                  debit={`${formatCurrency(item.debit)}`}
+                  titles={["Parcela", "Valor", "Saldo devedor"]}
+                  contents={[
+                    `${String(index + 1)}º`,
+                    `${formatCurrency(item.installment)}`,
+                    `${formatCurrency(item.debit)}`,
+                  ]}
                 />
               ))}
             </Stack>

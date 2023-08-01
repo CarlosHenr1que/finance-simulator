@@ -124,9 +124,12 @@ const Simulation: React.FC = () => {
                 renderItem={({ item, index }) => (
                   <CardInstallment
                     key={String(index)}
-                    order={`${String(index + 1)}º`}
-                    price={`${formatCurrency(item.currentBalance)}`}
-                    debit={`${formatCurrency(item.profit)}`}
+                    titles={["Mês", "Saldo", "Lucro"]}
+                    contents={[
+                      `${String(index + 1)}º`,
+                      `${formatCurrency(item.currentBalance)}`,
+                      `${formatCurrency(item.profit)}`,
+                    ]}
                   />
                 )}
               />

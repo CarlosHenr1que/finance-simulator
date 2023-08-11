@@ -17,7 +17,10 @@ import { CardInformation } from "@components/simulation/CardInformation";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import MCIcon from "@expo/vector-icons/MaterialCommunityIcons";
 
-import { useInvestingSimulation } from "@screens/Investing/contexts/simulation";
+import {
+  Earning,
+  useInvestingSimulation,
+} from "@screens/Investing/contexts/simulation";
 import { formatCurrency } from "@utils/currency";
 
 import CardInstallment from "@components/simulation/CardInstallment";
@@ -43,6 +46,24 @@ const Simulation: React.FC = () => {
   const onSelectedOption = (option: (typeof options)[0]) => {
     setSelectedOption(option);
   };
+
+  const renderInstallment = ({
+    item,
+    index,
+  }: {
+    item: Earning;
+    index: number;
+  }) => (
+    <CardInstallment
+      key={String(index)}
+      titles={["Mês", "Saldo", "Lucro"]}
+      contents={[
+        `${String(index + 1)}º`,
+        `${formatCurrency(item.currentBalance)}`,
+        `${formatCurrency(item.profit)}`,
+      ]}
+    />
+  );
 
   return (
     <Container>
@@ -121,17 +142,8 @@ const Simulation: React.FC = () => {
                 ItemSeparatorComponent={() => <Box height={10} />}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 180 }}
-                renderItem={({ item, index }) => (
-                  <CardInstallment
-                    key={String(index)}
-                    titles={["Mês", "Saldo", "Lucro"]}
-                    contents={[
-                      `${String(index + 1)}º`,
-                      `${formatCurrency(item.currentBalance)}`,
-                      `${formatCurrency(item.profit)}`,
-                    ]}
-                  />
-                )}
+                maxToRenderPerBatch={20}
+                renderItem={renderInstallment}
               />
             </ReAnimated.View>
           )}

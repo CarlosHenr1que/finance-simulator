@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 
-interface Earning {
+export interface Earning {
   currentBalance: number;
   profit: number;
   profitAmount: number;

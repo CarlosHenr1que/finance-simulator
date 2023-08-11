@@ -174,7 +174,7 @@ export default function CreateSimulation({ navigation }: FinancingProps) {
                           size={22}
                         />
                       }
-                      placeholder="Valor financiado"
+                      placeholder="Valor total"
                       mt={10}
                       onChange={onChange}
                       keyboardType="decimal-pad"

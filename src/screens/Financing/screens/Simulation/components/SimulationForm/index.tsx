@@ -99,7 +99,7 @@ const SimulationForm: React.FC = ({}) => {
                 ref={ref}
                 value={value}
                 icon={<Icon name="monetization-on" color="#3DE8BF" size={22} />}
-                placeholder="Valor financiado"
+                placeholder="Valor total"
                 mt={10}
                 onChange={onChange}
                 keyboardType="decimal-pad"

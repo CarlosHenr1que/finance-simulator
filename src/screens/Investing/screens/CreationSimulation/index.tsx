@@ -97,7 +97,7 @@ export default function CreateSimulation({
     const { initialValue, fee, regularContribution, duration } = values;
     const investment = await calculateInvestment(
       Number(initialValue),
-      Number(fee),
+      Number(fee.replace(",", ".")),
       regularContribution ? Number(regularContribution) : 0,
       Number(duration)
     );
@@ -107,7 +107,7 @@ export default function CreateSimulation({
       balance: investment.balance,
       duration: Number(duration),
       earnings: investment.installments,
-      fee: Number(fee),
+      fee: Number(fee.replace(",", ".")),
       regularContribution: regularContribution
         ? Number(regularContribution)
         : 0,
@@ -188,7 +188,7 @@ export default function CreateSimulation({
                         placeholder="Taxa de juros (Anual)"
                         mt={10}
                         onChange={onChange}
-                        keyboardType="number-pad"
+                        keyboardType="decimal-pad"
                         error={errors.fee?.message}
                         onSubmitEditing={onSimulatePress}
                       />

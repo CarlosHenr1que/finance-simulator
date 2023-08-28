@@ -66,7 +66,7 @@ const AmortizationForm: React.FC<AmortizationModalProps> = ({ onSuccess }) => {
                 onChange={onChange}
                 error={errors.constantAmortization?.message}
               />
-              <ToolTip text="Insira o valor que você acredita que poderá amortizar todo mes assim finalizando seu financiamento em tempo menor" />
+              <ToolTip text="Insira o valor que você acredita que poderá amortizar todo mês assim finalizando seu financiamento em tempo menor" />
             </>
           )}
         />

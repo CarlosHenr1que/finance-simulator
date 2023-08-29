@@ -1,5 +1,6 @@
 import {
   Keyboard,
+  ScrollView,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -124,8 +125,8 @@ export default function CreateSimulation({
   }, []);
 
   return (
-    <>
-      <Container>
+    <Container>
+      <ScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Box flex={1} justify="flex-end" dir="column" px={16} pt={60}>
             <Text size={24} weight="bold" color="primary">
@@ -275,7 +276,7 @@ export default function CreateSimulation({
             <Box flex={1} />
           </Box>
         </TouchableWithoutFeedback>
-      </Container>
-    </>
+      </ScrollView>
+    </Container>
   );
 }
